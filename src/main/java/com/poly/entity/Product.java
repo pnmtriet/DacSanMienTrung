@@ -30,6 +30,9 @@ public class Product {
     @Column(name = "images")
     private String images;
 
+    @Column(name = "unit")
+    private String unit;
+
     @Column(name = "number_of_sale")
     private Integer numberOfSale;
 
@@ -113,4 +116,11 @@ public class Product {
         this.brand = brand;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 }

@@ -29,6 +29,7 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 	<!-- responsive -->
 	<link rel="stylesheet" th:href="@{/css/responsive.css}">
+	<link rel="stylesheet" th:href="@{/css/menu_custom.css}">
 
 </head>
 <body>
@@ -89,7 +90,10 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="/shopping-cart">
+											<i class="fas fa-shopping-cart checkout" aria-hidden="true"></i>
+											<span id="checkout_items" class="checkout_items">[[${tongSoLuongGioHang}]]</span>
+										</a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 										<a class="Users-icon" href="#"><i class="fas fa-users"></i></a>
 									</div>
@@ -210,45 +214,55 @@
 
 	<!-- product section -->
 	<div class="product-section mt-150 mb-150">
-		<div class="container">
+		<div class="container" style="padding-bottom: 20px">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="section-title">	
 						<h3><span class="orange-text">Our</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+						<p>Yêu là phải nói, đói là phải ăn</p>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/Single-product"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				<div class="col-md-12">
+					<div class="product-filters">
+						<ul>
+							<li class="active">Tất cả</li>
+							<th:block th:each="item : ${listCategory}">
+								<li>[[${item.categoryName}]]</li>
+							</th:block>
+						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/Single-product"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+			</div>
+			<section class="items">
+				<div class="row product-lists" >
+					<th:block th:each="item : ${listProduct}">
+						<div class="col-lg-4 col-md-6 text-center" >
+							<div class="single-product-item">
+								<div class="product-image">
+									<a href="/single-product"><img class="product_img" th:src="@{/assets/img/products/none.png}" alt=""></a>
+								</div>
+								<h3 th:text="${item.productName}"></h3>
+								<p class="product-price"><span>Đơn vị: [[${item.unit}]]</span> [[${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}]] đ </p>
+								<a th:attr="data-masanpham=${item.id}" class="cart-btn btnAddToCart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+							</div>
 						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
+					</th:block>
 				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/Single-product"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+			</section>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="pagination-wrap">
+						<ul>
+							<li><a th:href="@{/index?soTrang={sotrang}(sotrang=${soTrangHienTai-1})}">Prev</a></li>
+							<th:block th:each="i: ${#numbers.sequence(1,tongSoTrang)}">
+								<li><a class="active" th:if="${soTrangHienTai==i}" th:href="@{/index?soTrang={sotrang}(sotrang=${i})}">[[${i}]]</a></li>
+								<li><a th:unless="${soTrangHienTai==i}" th:href="@{/index?soTrang={sotrang}(sotrang=${i})}">[[${i}]]</a></li>
+							</th:block>
+							<li><a th:href="@{/index?soTrang={sotrang}(sotrang=${soTrangHienTai+1})}">Next</a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -605,6 +619,11 @@
 	<script th:src="@{/js/sticker.js}"></script>
 	<!-- main js -->
 	<script th:src="@{/js/main.js}"></script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+	<script th:src="@{/fly_to_cart/js/flyto.min.js}"></script>
+	<script th:src="@{/js/index_custom.js}"></script>
 
 </body>
 </html>

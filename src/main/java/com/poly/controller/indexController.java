@@ -1,6 +1,9 @@
 package com.poly.controller;
 
+import com.poly.dao.CategoryDAO;
 import com.poly.dao.ProductDAO;
+import com.poly.dao.ShoppingCartDAO;
+import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.helper.ProductHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,16 +24,27 @@ public class indexController {
 	@Autowired
 	ProductDAO productDAO;
 
+	@Autowired
+	CategoryDAO categoryDAO;
+
+	@Autowired
+	ShoppingCartDAO shoppingCartDAO;
+
 	ProductHelper productHelper=new ProductHelper();
-	@RequestMapping("/index")
+	@GetMapping("/index")
 	public String index(Model model, @RequestParam Optional<String> message,
 						@RequestParam("soTrang") Optional<String> soTrangString,
 						@RequestParam("soSanPham") Optional<String> soSanPhamString) {
-		int soTrang=soTrangString.isEmpty()?1:Integer.parseInt(soTrangString.get());
-		model.addAttribute("soTrangHienTai", soTrang);
-		int soSanPham=soTrangString.isEmpty()?6:Integer.parseInt(soSanPhamString.get());
-		model.addAttribute("soSanPhamHienTai", soSanPham);
+		int soTrang=!soTrangString.isPresent()?1:Integer.parseInt(soTrangString.get());
+		int soSanPham=!soSanPhamString.isPresent()?6:Integer.parseInt(soSanPhamString.get());
 		int tongSoTrang=productHelper.getTotalPage(soSanPham, productDAO.findAll());
+		if(soTrang<1){
+			soTrang=1;
+		}else if(soTrang>tongSoTrang){
+			soTrang=tongSoTrang;
+		}
+		model.addAttribute("soTrangHienTai", soTrang);
+		model.addAttribute("soSanPhamHienTai", soSanPham);
 		model.addAttribute("tongSoTrang", tongSoTrang);
 		Pageable pageable = PageRequest.of(soTrang-1, soSanPham);
 		Page<Product> pageProduct=productDAO.findAll(pageable);
@@ -37,7 +52,11 @@ public class indexController {
 		if(message.isPresent()) {
 			model.addAttribute("message",message.get());
 		}
-		model.addAttribute("listGiay",list);
+		model.addAttribute("listProduct",list);
+		//Category
+		List<Category> listCategory=categoryDAO.findAll();
+		model.addAttribute("listCategory",listCategory);
+		model.addAttribute("tongSoLuongGioHang",shoppingCartDAO.getCount());
 		return "customer/index";
 	}
 

@@ -210,29 +210,33 @@
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a class="boxed-btn black"
+							<a th:if="${sessionUsername==null}" class="boxed-btn black" th:href="@{/login?error=errorNoLogin&urlReturn=shopping-cart}">
+								Thanh toán
+							</a>
+							<a th:if="${sessionUsername!=null}" class="boxed-btn black"
 							   data-toggle="modal"
 							   data-target="#exampleModalCenter">Thanh toán</a>
 							<!-- Modal -->
-							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-								 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLongTitle">Thông tin khách hàng</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<div class="card-body">
-												<div class="billing-address-form">
-													<form>
-														<p><input type="text" placeholder="Họ và tên"></p>
-														<p><input type="email" placeholder="Email"></p>
-														<p><input type="text" placeholder="Địa chỉ nhận hàng"></p>
-														<p><input type="tel" placeholder="Số điện thoại"></p>
-														<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Ghi chú"></textarea></p>
+							<form th:object="${user}">
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+									 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLongTitle">Thông tin khách hàng</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="card-body">
+													<div class="billing-address-form">
+														<p><input th:field="*{fullName}" type="text" placeholder="Họ và tên" ></p>
+														<p><input th:field="*{email}" type="email" placeholder="Email"></p>
+														<p><input th:field="*{phone}" type="text" placeholder="Số điện thoại"></p>
+														<p><input name="note" type="text" placeholder="Ghi chú"></p>
+														<p><input th:value="${tongTienGioHang+15000}" name="totalMoney" type="hidden" placeholder="Tổng tiền phải trả"></p>
+														<p><textarea th:field="*{address}" cols="30" rows="10" placeholder="Địa chỉ giao hàng"></textarea></p>
 														<fieldset>
 															<legend>Phương thức thanh toán</legend>
 															<div class="form__radios">
@@ -240,42 +244,42 @@
 																	<label for="visa"><svg class="icon">
 																		<use xlink:href="#icon-visa" />
 																	</svg>Visa Payment</label>
-																	<input checked id="visa" name="payment-method" type="radio" />
+																	<input checked id="visa" value="Visa" name="payment-method" type="radio" />
 																</div>
 
 																<div class="form__radio">
 																	<label for="paypal"><svg class="icon">
 																		<use xlink:href="#icon-paypal" />
 																	</svg>PayPal</label>
-																	<input id="paypal" name="payment-method" type="radio" />
+																	<input id="paypal" value="Paypal" name="payment-method" type="radio" />
 																</div>
 
 																<div class="form__radio">
 																	<label for="mastercard"><svg class="icon">
 																		<use xlink:href="#icon-mastercard" />
 																	</svg>Master Card</label>
-																	<input id="mastercard" name="payment-method" type="radio" />
+																	<input value="Master Card" id="mastercard" name="payment-method" type="radio" />
 																</div>
 																<div class="form__radio">
 																	<label for="mastercard">
 																		<img width="14px" height="14px" src="/assets/img/icon/nhanhang.png" >
 																		Thanh toán khi nhận hàng</label>
-																	<input id="mastercard" name="payment-method" type="radio" />
+																	<input value="Tiền mặt" id="mastercard" name="payment-method" type="radio" />
 																</div>
 															</div>
 														</fieldset>
-													</form>
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-primary">Thanh toán</button>
-											<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Đóng</button>
+											<div class="modal-footer">
+												<button formaction="/order/add" formmethod="post" type="submit" class="btn btn-primary">Thanh toán</button>
+												<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Đóng</button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>

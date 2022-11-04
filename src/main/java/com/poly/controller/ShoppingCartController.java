@@ -3,7 +3,9 @@ package com.poly.controller;
 import java.util.Collection;
 
 import com.poly.dao.ProductDAO;
+import com.poly.dao.SessionDAO;
 import com.poly.dao.ShoppingCartDAO;
+import com.poly.entity.Account;
 import com.poly.entity.Product;
 import com.poly.entity.ShoppingCart;
 import com.poly.validate.ProductValidate;
@@ -13,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -26,9 +25,17 @@ public class ShoppingCartController {
 	ProductDAO productDAO;
 	@Autowired
 	ShoppingCartDAO shoppingCartDAO;
+
+	@Autowired
+	SessionDAO session;
 	
 	@GetMapping({"","views"})
-	public String viewCart(Model model) {
+	public String viewCart(Model model,@ModelAttribute("user") Account user) {
+		Account khachHang=(Account) session.get("user");
+		if(khachHang!=null) {
+			model.addAttribute("sessionUsername",khachHang.getUserName());
+			model.addAttribute("user",khachHang);
+		}
 		Collection<ShoppingCart> listGioHang = shoppingCartDAO.getAll();
 		model.addAttribute("listGioHang",listGioHang);
 		model.addAttribute("tongTienGioHang",shoppingCartDAO.getAmout());

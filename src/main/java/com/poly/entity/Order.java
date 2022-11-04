@@ -1,10 +1,11 @@
 package com.poly.entity;
 
 import org.hibernate.annotations.Nationalized;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "Orders")
@@ -15,7 +16,8 @@ public class Order {
     private Integer id;
 
     @Column(name = "order_date")
-    private Instant orderDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date orderDate;
 
     @Nationalized
     @Column(name = "note", length = 300)
@@ -26,10 +28,29 @@ public class Order {
     private String orderStatus;
 
     @Column(name = "total_money")
-    private Double totalMoney;
+    private int totalMoney;
 
     @Column(name = "delivery_date")
-    private LocalDate deliveryDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date deliveryDate;
+
+    @Column(name = "payment", length = 50)
+    private String payment;
+
+    @Nationalized
+    @Column(name = "fullname", length = 50)
+    private String fullname;
+
+    @Nationalized
+    @Column(name = "phone", length = 20)
+    private String phone;
+
+    @Column(name = "email", length = 50)
+    private String email;
+
+    @Nationalized
+    @Column(name = "address", length = 300)
+    private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
@@ -43,11 +64,12 @@ public class Order {
         this.id = id;
     }
 
-    public Instant getOrderDate() {
+
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Instant orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -67,20 +89,29 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Double getTotalMoney() {
+
+    public int getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(Double totalMoney) {
+    public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
 
-    public LocalDate getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
     public Account getAccount() {
@@ -91,4 +122,35 @@ public class Order {
         this.account = account;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

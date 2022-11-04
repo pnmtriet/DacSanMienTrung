@@ -32,7 +32,11 @@ public class LoginController {
     public String login(Model model, @RequestParam Optional<String> urlReturn, @RequestParam Optional<String> error) {
         path=urlReturn.isPresent()?urlReturn.get():"";
         if(error.isPresent()) {
-            model.addAttribute("message", error.get());
+            if(error.get().equals("errorNoLogin")){
+                model.addAttribute("message", "Vui lòng đăng nhập để tiếp tục!");
+            }else{
+                model.addAttribute("message", error.get());
+            }
         }
         return "customer/login";
     }

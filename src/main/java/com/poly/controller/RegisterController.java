@@ -34,7 +34,7 @@ public class RegisterController {
         return "customer/register";
     }
     @PostMapping("")
-    public String login(Model model,
+    public String register(Model model,
                         @ModelAttribute("user") Account user) {
         boolean registerSuccess = true;
         List<String> listCheck=new ArrayList<>();

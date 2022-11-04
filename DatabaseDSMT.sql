@@ -92,9 +92,14 @@ CREATE TABLE Orders
   --Trạng thái đơn hàng
   order_status NVARCHAR(20),
   --Tổng tiền
-  total_money FLOAT,
+  total_money INT,
   --Ngày giao dự kiến (mặc định + lên 3 ngày)
   delivery_date DATE,
+  payment NVARCHAR(50),
+  fullname NVARCHAR(50),
+  phone VARCHAR(20),
+  email VARCHAR(50),
+  address NVARCHAR(300),
   --Người đặt hàng
   account_id INT,
   FOREIGN KEY (account_id) REFERENCES Account(id)
@@ -211,3 +216,6 @@ values ('pnmtriet','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtri
 --select * from Brand
 --select * from Roles
 --select * from Account
+--select * from Orders
+--select * from OrdersDetail
+

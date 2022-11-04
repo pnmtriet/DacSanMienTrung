@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SingleproductController {
-    @RequestMapping("/Single-product")
+    @RequestMapping("/single-product")
     public String index() {
         return "customer/single-product";
     }

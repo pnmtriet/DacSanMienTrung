@@ -16,14 +16,14 @@ public class ShoppingCartImpl implements ShoppingCartDAO {
 	Map<Integer, ShoppingCart> maps=new HashMap<>();
 	
 	@Override
-	public void add(ShoppingCart item) {
+	public void add(ShoppingCart item,Integer soLuong) {
 		int productId=item.getId();
 		ShoppingCart cartItem=maps.get(productId);//truy vấn giỏ hàng theo mã sp
 		//Nếu chưa tồn tại
-		if(cartItem==null) {			
+		if(cartItem==null) {
 			maps.put(productId, item);
 		}else {
-			cartItem.setSoLuong(cartItem.getSoLuong()+1);
+			cartItem.setSoLuong(cartItem.getSoLuong()+soLuong);
 		}
 	}
 

@@ -122,3 +122,8 @@ tfoot {
       height: 120px;
       resize: none;
 }
+
+.btnClearAll{
+    color:#fff;
+    border-radius:8px;
+}

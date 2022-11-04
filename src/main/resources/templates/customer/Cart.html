@@ -96,11 +96,33 @@
 								<li>
 									<div class="header-icons">
 										<a class="shopping-cart" href="/shopping-cart">
-											<i class="fas fa-shopping-cart" aria-hidden="true"></i>
+											<i class="fas fa-shopping-cart checkout" aria-hidden="true"></i>
 											<span id="checkout_items" class="checkout_items">[[${tongSoLuongGioHang}]]</span>
 										</a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<a class="Users-icon" href="#"><i class="fas fa-users"></i></a>
+										<div th:if="${sessionUsername}!=null" class="dropdown dropdownCustom">
+											<div class="dropdown-toggle customUser" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+												<i class="fas fa-user">
+													Xin chào, [[${sessionUsername}]]</i>
+											</div>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item dropdownCustom" href="#">Thông tin</a>
+												<a class="dropdown-item dropdownCustom" href="#">Đổi mật khẩu</a>
+												<a class="dropdown-item dropdownCustom" th:href="@{/logout?urlReturn=shopping-cart}">Đăng xuất</a>
+											</div>
+										</div>
+
+										<div th:if="${sessionUsername}==null"class="dropdown dropdownCustom">
+											<div class="dropdown-toggle customUser" id="dropdownMenuButton"
+												 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												 href="#">
+												<i class="fas fa-user"></i>
+											</div>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item dropdownCustom" th:href="@{/login?urlReturn=shopping-cart}">Đăng nhập</a>
+												<a class="dropdown-item dropdownCustom" th:href="@{/register}">Đăng ký</a>
+											</div>
+										</div>
 									</div>
 								</li>
 							</ul>
@@ -152,13 +174,14 @@
 	<!-- cart -->
 	<div class="cart-section mt-150 mb-150">
 		<div class="container">
+			<h3>[[${error}]]</h3>
 			<div class="row">
 				<div class="col-lg-8 col-md-12">
 					<div class="cart-table-wrap">
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
-									<th class="product-remove"></th>
+									<th class="product-remove"><a th:href="@{/shopping-cart/deleteAllItem}" class="btn btn-danger btnClearAll">Xóa tất cả</a></th>
 									<th class="product-image">Hình ảnh</th>
 									<th class="product-name">Tên sản phẩm</th>
 									<th class="product-price">Giá</th>
@@ -210,10 +233,10 @@
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a th:if="${sessionUsername==null}" class="boxed-btn black" th:href="@{/login?error=errorNoLogin&urlReturn=shopping-cart}">
+							<a th:if="${sessionUsername==null && tongTienGioHang!=0}" class="boxed-btn black" th:href="@{/login?error=errorNoLogin&urlReturn=shopping-cart}">
 								Thanh toán
 							</a>
-							<a th:if="${sessionUsername!=null}" class="boxed-btn black"
+							<a th:if="${sessionUsername!=null && tongTienGioHang!=0}" class="boxed-btn black"
 							   data-toggle="modal"
 							   data-target="#exampleModalCenter">Thanh toán</a>
 							<!-- Modal -->
@@ -235,7 +258,6 @@
 														<p><input th:field="*{email}" type="email" placeholder="Email"></p>
 														<p><input th:field="*{phone}" type="text" placeholder="Số điện thoại"></p>
 														<p><input name="note" type="text" placeholder="Ghi chú"></p>
-														<p><input th:value="${tongTienGioHang+15000}" name="totalMoney" type="hidden" placeholder="Tổng tiền phải trả"></p>
 														<p><textarea th:field="*{address}" cols="30" rows="10" placeholder="Địa chỉ giao hàng"></textarea></p>
 														<fieldset>
 															<legend>Phương thức thanh toán</legend>

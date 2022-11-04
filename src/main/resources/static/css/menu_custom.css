@@ -18,3 +18,32 @@
 	font-size: 12px;
 	color: #FFFFFF;
 }
+
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+.customUser{
+	color: #ffffff;
+    font-weight: 700;
+}
+.customUser:hover{
+	color: #f28123;
+	cursor: pointer;
+}
+.dropdownCustom{
+	color: #555 !important;
+	font-size: 14px !important;
+}
+.dropdownCustom:hover{
+	color: #f28123 !important;
+}
+.dropdownCustom{
+	display: inline-block;
+	padding: 10px;
+}

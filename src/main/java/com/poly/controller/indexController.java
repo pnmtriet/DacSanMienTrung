@@ -2,7 +2,9 @@ package com.poly.controller;
 
 import com.poly.dao.CategoryDAO;
 import com.poly.dao.ProductDAO;
+import com.poly.dao.SessionDAO;
 import com.poly.dao.ShoppingCartDAO;
+import com.poly.entity.Account;
 import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.helper.ProductHelper;
@@ -13,14 +15,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class indexController {
+public class IndexController {
 	@Autowired
 	ProductDAO productDAO;
 
@@ -29,6 +30,9 @@ public class indexController {
 
 	@Autowired
 	ShoppingCartDAO shoppingCartDAO;
+
+	@Autowired
+	SessionDAO session;
 
 	ProductHelper productHelper=new ProductHelper();
 	@GetMapping("/index")
@@ -57,6 +61,10 @@ public class indexController {
 		List<Category> listCategory=categoryDAO.findAll();
 		model.addAttribute("listCategory",listCategory);
 		model.addAttribute("tongSoLuongGioHang",shoppingCartDAO.getCount());
+		Account khachHang=(Account) session.get("user");
+		if(khachHang!=null) {
+			model.addAttribute("sessionUsername",khachHang.getUserName());
+		}
 		return "customer/index";
 	}
 

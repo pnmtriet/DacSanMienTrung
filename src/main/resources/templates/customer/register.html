@@ -26,94 +26,112 @@
 		<div class="row">
 			<div class="col-7"
 				style="margin: 40px auto 60px auto; border-radius: 10px;">
-				<a th:href="@{/home}" class="fa fa-home"
+				<a th:href="@{/index}" class="fa fa-home"
 					style="font-size: 50px; text-decoration: none; color: gray;"></a>
-				<form th:action="@{/register}" method="post" th:object="${customer}"
+				<form th:action="@{/register}" method="post"
+					  th:object="${user}"
 					style="border: 1px solid rgba(128, 128, 128, 0.308); border-radius: 10px; box-shadow: 0 2px 2px rgba(128, 128, 128, 0.158); background-color: rgba(169, 215, 255, 0.034);">
 					<div class="card-header">
 						<h2 class="text-center" style="font-weight: bold;">Đăng kí</h2>
 					</div>
 					<div class="card-body">
-						<!-- 						<div class="row"> -->
-						<!-- 							<div class="col">								 -->
-						<!-- 								<img th:src="@{'/getcustomer/'+${photo}}" style="width: 100px" id="img" -->
-						<!-- 									class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"> -->
-						<!-- 									<label for="customerImage">Ảnh đại diện</label> -->
-						<!-- 							</div> -->
-						<!-- 							<div class="col"> -->
-						<!-- 								<div class="form-group"> <input -->
-						<!-- 										type="file" name="photo" id="customerImage" -->
-						<!-- 										class="form-control-file" onchange="readURL(this);"> <input -->
-						<!-- 										type="hidden" name="imgC" th:value="*{image}" /> -->
-						<!-- 								</div> -->
-						<!-- 							</div> -->
-						<!-- 						</div> -->
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
-									<label for="name">Họ Và Tên</label> <input id="name"
-										th:field="*{name}" class="form-control" type="text"
-										name="name"> <small
-										th:if="${#fields.hasErrors('name')}" class="text-danger"><i>Họ
-											tên không được để trống</i></small>
+									<label for="name">Họ và tên</label> <input id="name"
+										class="form-control" type="text"
+										name="fullname" th:field="*{fullName}" required="required">
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<label for="email">Email</label> <input id="email"
-										th:field="*{email}" class="form-control" type="text"
-										name="email"> <small
-										th:if="${#fields.hasErrors('email')}" class="text-danger"><i>Email
-											không được để trống</i></small> <small
-										th:if="${error}" th:text="${error}" class="text-danger"><i></i></small>
+									<label for="username">Tài khoản</label> <input
+										th:field="*{userName}"
+										required="required"
+										id="username"
+										class="form-control" type="text"
+										name="username"> <small th:if="${message}!=null"
+										class="text-danger"><i>[[${message}]]</i></small>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
-									<label for="password">Mật Khẩu</label> <input id="password"
-										th:value="*{password}" class="form-control" type="password"
-										name="password"> <small
-										th:if="${#fields.hasErrors('password')}" class="text-danger"><i>Mật
-											khẩu không được để trống (trên 6 kí tự)</i></small>
+									<label for="password">Mật khẩu</label> <input
+										th:field="*{passWord}"
+										required="required"
+										id="password"
+										class="form-control" type="password"
+										name="password">
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<label for="gender">Giới Tính</label> <select id="gender"
-										th:field="*{gender}" class="form-control" name="gender">
-										<option value="true">Nam</option>
-										<option value="false">Nữ</option>
-									</select>
+									<label for="repassword">Nhắc lại mật khẩu</label> <input id="repassword" required="required"
+																				  class="form-control" type="password"
+																				  name="repassword">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
-									<label for="address">Địa Chỉ</label> <input type="text"
-										th:field="*{address}" id="address" class="form-control"
-										name="address"> <small
-										th:if="${#fields.hasErrors('address')}" class="text-danger"><i>Địa
-											chỉ không được để trống</i></small>
+									<label for="gender">Giới tính</label> <select  th:field="*{gender}"
+																					id="gender"
+																				  class="form-control" name="gender">
+									<option value="true">Nam</option>
+									<option value="false">Nữ</option>
+								</select>
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<label for="phone">Số điện thoại</label> <input id="phone"
-										th:field="*{phone}" class="form-control" type="text"
-										name="phone"> <small
-										th:if="${#fields.hasErrors('phone')}" class="text-danger"><i>Hãy
-											nhập đúng số điện thoại</i></small>
+									<label for="phone">Số điện thoại</label> <input
+										th:field="*{phone}"
+										required="required"
+										id="phone"
+										class="form-control" type="text"
+										name="phone">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for="dateOfBirth">Ngày sinh</label> <input th:field="*{dateOfBirth}"
+																					  required="required"
+																					id="dateOfBirth"
+																					class="form-control" type="date"
+																					  value="2000-01-01"
+																					name="dateOfBirth">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label for="email">Email</label> <input
+										required="required"
+										th:field="*{email}"
+										id="email"
+										class="form-control" type="email"
+										name="email">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for="address">Địa chỉ</label> <textarea th:field="*{address}"
+																				   required="required"
+																				type="text"
+																				id="address" class="form-control" name="address"
+																				rows="3"></textarea>
 								</div>
 							</div>
 						</div>
 						<hr>
 						<div>
-							<button class="btn btn-outline-primary">ĐĂNG KÍ</button>
-							<button type="submit" class="btn btn-outline-danger ml-2"
-								data-dismiss="modal" formaction="/register" formmethod="get">HUỶ</button>
+							<button class="btn btn-outline-primary">ĐĂNG KÝ</button>
 						</div>
 					</div>
 				</form>

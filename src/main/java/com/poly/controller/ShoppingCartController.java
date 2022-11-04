@@ -1,6 +1,7 @@
 package com.poly.controller;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import com.poly.dao.ProductDAO;
 import com.poly.dao.SessionDAO;
@@ -30,7 +31,10 @@ public class ShoppingCartController {
 	SessionDAO session;
 	
 	@GetMapping({"","views"})
-	public String viewCart(Model model,@ModelAttribute("user") Account user) {
+	public String viewCart(Model model, @RequestParam("error") Optional<String> error, @ModelAttribute("user") Account user) {
+		if(error.isPresent()){
+			model.addAttribute("error","Đặt hàng thất bại");
+		}
 		Account khachHang=(Account) session.get("user");
 		if(khachHang!=null) {
 			model.addAttribute("sessionUsername",khachHang.getUserName());
@@ -43,7 +47,7 @@ public class ShoppingCartController {
 		return "customer/Cart";
 	}
 	@PostMapping("addToCart")
-	public ResponseEntity<String> addToCart(@RequestParam String maSanPham) throws JSONException {
+	public ResponseEntity<String> addToCart(@RequestParam String maSanPham,@RequestParam Integer soLuong) throws JSONException {
 		ShoppingCart cartItem=new ShoppingCart();
 		Product product=productDAO.findById(Integer.parseInt(maSanPham)).get();
 		cartItem.setId(product.getId());
@@ -56,7 +60,8 @@ public class ShoppingCartController {
 		cartItem.setProductName(product.getProductName());
 		cartItem.setUnit(product.getUnit());
 		cartItem.setNumberOfSale(product.getNumberOfSale());
-		shoppingCartDAO.add(cartItem);
+		cartItem.setSoLuong(soLuong);
+		shoppingCartDAO.add(cartItem,soLuong);
 		int tongSoLuongGioHang = shoppingCartDAO.getCount();
 		JSONObject json = new JSONObject();
 		json.put("soLuong", tongSoLuongGioHang);
@@ -88,7 +93,7 @@ public class ShoppingCartController {
 			return ResponseEntity.ok("fail");
 		}
 	}
-	@PostMapping("deleteAllItem")
+	@GetMapping("deleteAllItem")
 	public String deleteAllItem(Model model) {
 		shoppingCartDAO.clear();
 		return "redirect:/shopping-cart";

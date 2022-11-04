@@ -4,7 +4,7 @@ import java.util.Collection;
 import com.poly.entity.ShoppingCart;
 
 public interface ShoppingCartDAO {
-	public void add(ShoppingCart item);
+	public void add(ShoppingCart item,Integer soLuong);
 	public void remove(int id);
 	public int getAmout();
 	public int getCount();

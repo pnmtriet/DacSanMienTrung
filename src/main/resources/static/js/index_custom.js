@@ -9,7 +9,8 @@ $(document).ready(() => {
 			method: "POST",
 			// type: "application/json",
 			data: {
-				maSanPham: masp
+				maSanPham: masp,
+				soLuong:1
 			},
 			success: function(response) {
 				const obj = JSON.parse(response);

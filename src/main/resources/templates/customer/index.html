@@ -264,7 +264,7 @@
 						<div class="col-lg-4 col-md-6 text-center" >
 							<div class="single-product-item">
 								<div class="product-image">
-									<a href="/single-product"><img class="product_img" th:src="@{'/assets/img/products/'+${item.images}}" alt=""></a>
+									<a th:href="@{'/single-product?id='+${item.id}}"><img class="product_img" th:src="@{'/assets/img/products/'+${item.images}}" alt=""></a>
 								</div>
 								<h3 th:text="${item.productName}"></h3>
 								<p class="product-price"><span>Đơn vị: [[${item.unit}]]</span> [[${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}]] đ </p>

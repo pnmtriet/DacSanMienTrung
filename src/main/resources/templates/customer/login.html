@@ -45,7 +45,9 @@
 										th:action="@{/login}" method="post">
 										<h1 class="text-center" style="font-weight: bold;">Đăng
 											nhập</h1>
-										<br> <br> <input type="text" name="username" id=""
+										<br> <br>
+										<h3>[[${message}]]</h3>
+										<input type="text" name="username" id=""
 											class="form-control mb-3" placeholder="Tên đăng nhập"
 											style="border-radius: 15px; padding: 22px;"> <input
 											type="password" name="password" id="myPass"

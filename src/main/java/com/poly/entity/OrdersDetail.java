@@ -9,6 +9,13 @@ public class OrdersDetail {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(name = "order_id")
+    private Integer orderId;
+
+    @Column(name = "product_id")
+    private Integer productId;
+
+
     @Column(name = "amount")
     private Integer amount;
 
@@ -39,4 +46,19 @@ public class OrdersDetail {
         this.price = price;
     }
 
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 }

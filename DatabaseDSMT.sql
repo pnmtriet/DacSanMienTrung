@@ -57,15 +57,6 @@ CREATE TABLE Store
 	FOREIGN KEY (product_id) REFERENCES Product(id)
 );
 
---Bảng chứa thông tin giao hàng
-CREATE TABLE ShipDetail
-(
-  id INT IDENTITY(1,1) PRIMARY KEY,
-  phone VARCHAR(20),
-  address NVARCHAR(300)
-);
-
-
 -- Đây là Bảng chi tiết quyền
 CREATE TABLE Roles
 (
@@ -80,11 +71,11 @@ CREATE TABLE Account
   pass_word VARCHAR(20),
   full_name NVARCHAR(50),
   phone VARCHAR(20),
-  ship_detail_id  INT,
   email VARCHAR(50),
+  gender bit,
+  address NVARCHAR(300),
   date_of_birth DATE,
   role_id INT,
-  FOREIGN KEY (ship_detail_id) REFERENCES ShipDetail(id),
   FOREIGN KEY (role_id) REFERENCES Roles(id)
 );
 
@@ -106,8 +97,6 @@ CREATE TABLE Orders
   delivery_date DATE,
   --Người đặt hàng
   account_id INT,
-  ship_detail_id INT,
-  FOREIGN KEY (ship_detail_id) REFERENCES ShipDetail(id),
   FOREIGN KEY (account_id) REFERENCES Account(id)
 );
 
@@ -205,7 +194,20 @@ N'Đây là một trong các món ăn miền Trung phổ biến ở khu vực B�
 'sp15.png',N'Phần',10,3,9)
 
 
+insert into Roles
+VALUES ('Admin'),
+('Staff'),
+('User')
+
+insert into Account
+values ('pnmtriet','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',1),
+('pnmtriet2','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',2),
+('pnmtriet3','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',3)
+
+
 
 --select * from Product
 --select * from Category
 --select * from Brand
+--select * from Roles
+--select * from Account

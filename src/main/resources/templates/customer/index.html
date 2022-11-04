@@ -95,7 +95,29 @@
 											<span id="checkout_items" class="checkout_items">[[${tongSoLuongGioHang}]]</span>
 										</a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<a class="Users-icon" href="#"><i class="fas fa-users"></i></a>
+										<div th:if="${sessionUsername}!=null" class="dropdown dropdownCustom">
+											<div class="dropdown-toggle customUser" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+												<i class="fas fa-user">
+													Xin chào, [[${sessionUsername}]]</i>
+											</div>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item dropdownCustom" href="#">Thông tin</a>
+												<a class="dropdown-item dropdownCustom" href="#">Đổi mật khẩu</a>
+												<a class="dropdown-item dropdownCustom" th:href="@{/logout}">Đăng xuất</a>
+											</div>
+										</div>
+
+										<div th:if="${sessionUsername}==null"class="dropdown dropdownCustom">
+											<div class="dropdown-toggle customUser" id="dropdownMenuButton"
+												 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												 href="#">
+												<i class="fas fa-user"></i>
+											</div>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item dropdownCustom" th:href="@{/login}">Đăng nhập</a>
+												<a class="dropdown-item dropdownCustom" th:href="@{/register}">Đăng ký</a>
+											</div>
+										</div>
 									</div>
 								</li>
 							</ul>

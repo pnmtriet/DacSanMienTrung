@@ -1,9 +1,10 @@
 package com.poly.entity;
 
 import org.hibernate.annotations.Nationalized;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Account {
@@ -28,8 +29,16 @@ public class Account {
     @Column(name = "email", length = 50)
     private String email;
 
+    @Column(name = "gender")
+    private Boolean gender;
+
+    @Nationalized
+    @Column(name = "address", length = 300)
+    private String address;
+
     @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
@@ -91,12 +100,27 @@ public class Account {
         this.email = email;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
 }

@@ -25,15 +25,10 @@
 		<div class="row">
 			<div class="col-7" style="margin: 60px auto; border-radius: 10px;">
 
-				<a th:href="@{/home}" class="fa fa-home"
+				<a th:href="@{/index}" class="fa fa-home"
 					style="font-size: 50px; text-decoration: none; color: gray;"></a>
-				<div class="alert alert-success text-center" role="alert"
-					th:if="${message}">
-					<strong>Chúc mừng!</strong> Bạn đã đăng kí thành công! Hãy đăng
-					nhập để dễ dàng sử dụng.
-				</div>
 				<div class="alert alert-danger text-center" role="alert"
-					th:if="${error}">Tài khoản hoặc mật khẩu không đúng!</div>
+					th:if="${message}">[[${message}]]</div>
 				<div
 					style="box-shadow: 0 2px 2px rgba(128, 128, 128, 0.377); border-radius: 20px;">
 					<div class="row ml-0 mr-0 card"
@@ -47,7 +42,7 @@
 								</div>
 								<div class="col-7">
 									<form class="form-group"
-										th:action="@{/j_spring_security_check}" method="post">
+										th:action="@{/login}" method="post">
 										<h1 class="text-center" style="font-weight: bold;">Đăng
 											nhập</h1>
 										<br> <br> <input type="text" name="username" id=""

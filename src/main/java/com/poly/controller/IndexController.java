@@ -38,10 +38,13 @@ public class IndexController {
 	@GetMapping("/index")
 	public String index(Model model, @RequestParam Optional<String> message,
 						@RequestParam("soTrang") Optional<String> soTrangString,
-						@RequestParam("soSanPham") Optional<String> soSanPhamString) {
+						@RequestParam("soSanPham") Optional<String> soSanPhamString,
+						@RequestParam("txtSearch") Optional<String> txtSearch) {
 		int soTrang=!soTrangString.isPresent()?1:Integer.parseInt(soTrangString.get());
 		int soSanPham=!soSanPhamString.isPresent()?6:Integer.parseInt(soSanPhamString.get());
-		int tongSoTrang=productHelper.getTotalPage(soSanPham, productDAO.findAll());
+		int tongSoTrang=txtSearch.isPresent()
+				?productHelper.getTotalPage(soSanPham, productDAO.findByProductName(txtSearch.get()))
+				:productHelper.getTotalPage(soSanPham, productDAO.findAll());
 		if(soTrang<1){
 			soTrang=1;
 		}else if(soTrang>tongSoTrang){
@@ -51,7 +54,9 @@ public class IndexController {
 		model.addAttribute("soSanPhamHienTai", soSanPham);
 		model.addAttribute("tongSoTrang", tongSoTrang);
 		Pageable pageable = PageRequest.of(soTrang-1, soSanPham);
-		Page<Product> pageProduct=productDAO.findAll(pageable);
+		Page<Product> pageProduct=txtSearch.isPresent()
+				?productDAO.findByProductNamePage(pageable,txtSearch.get())
+				:productDAO.findAll(pageable);
 		List<Product> list=pageProduct.getContent();
 		if(message.isPresent()) {
 			model.addAttribute("message",message.get());

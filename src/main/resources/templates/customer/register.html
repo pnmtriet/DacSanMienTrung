@@ -60,6 +60,8 @@
 								<div class="form-group">
 									<label for="password">Mật khẩu</label> <input
 										th:field="*{passWord}"
+										pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+										title="Mật khẩu bao gồm 8 ký tự, chữ in hoa, chữ cái thường và số"
 										required="required"
 										id="password"
 										class="form-control" type="password"
@@ -89,6 +91,8 @@
 								<div class="form-group">
 									<label for="phone">Số điện thoại</label> <input
 										th:field="*{phone}"
+										pattern="(0[3|5|7|8|9])+([0-9]{8})"
+										title="Số điện thoại Việt Nam bao gồm 10 chữ số"
 										required="required"
 										id="phone"
 										class="form-control" type="text"

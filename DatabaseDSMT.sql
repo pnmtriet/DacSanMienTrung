@@ -207,7 +207,7 @@ VALUES ('Admin'),
 insert into Account
 values ('pnmtriet','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',1),
 ('pnmtriet2','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',2),
-('pnmtriet3','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',3)
+('pnmtriet3','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtriet193@gmail.com',0,N'123 Cộng Hòa, Q.Tân Bình, TP.HCM','1999/08/22',3)
 
 
 

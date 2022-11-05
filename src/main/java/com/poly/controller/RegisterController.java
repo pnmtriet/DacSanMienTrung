@@ -36,6 +36,9 @@ public class RegisterController {
     @PostMapping("")
     public String register(Model model,
                         @ModelAttribute("user") Account user) {
+        if(session.get("user")!=null){
+            return "redirect:/index";
+        }
         boolean registerSuccess = true;
         List<String> listCheck=new ArrayList<>();
         listCheck.add(user.getUserName());

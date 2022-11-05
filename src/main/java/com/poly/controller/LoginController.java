@@ -30,6 +30,9 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model, @RequestParam Optional<String> urlReturn, @RequestParam Optional<String> error) {
+        if(session.get("user")!=null){
+            return "redirect:/index";
+        }
         path=urlReturn.isPresent()?urlReturn.get():"";
         if(error.isPresent()) {
             if(error.get().equals("errorNoLogin")){

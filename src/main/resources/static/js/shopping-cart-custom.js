@@ -1,4 +1,3 @@
-
 $(document).ready(() => {
 	$('.productRemove').on('click', (element) => {
 		const thisBtn = $(element.currentTarget);

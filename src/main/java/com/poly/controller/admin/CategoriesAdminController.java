@@ -94,7 +94,7 @@ public class CategoriesAdminController {
 
     @GetMapping("delete")
     @Transactional
-    public String index(@RequestParam("categoryId") Optional<String> categoryId) {
+    public String delete(@RequestParam("categoryId") Optional<String> categoryId) {
         if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
             return "redirect:/auth/access/denied";
         }

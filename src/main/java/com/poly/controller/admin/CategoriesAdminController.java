@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin/category")
 public class CategoriesAdminController {
+    @Autowired
+    HttpServletRequest request;
     @Autowired
     CategoryDAO categoryDAO;
 
@@ -35,6 +38,9 @@ public class CategoriesAdminController {
                         @RequestParam("soTrang") Optional<String> soTrangString,
                         @RequestParam("soSanPham") Optional<String> soSanPhamString,
                         @RequestParam("txtSearch") Optional<String> txtSearch) {
+        if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
+            return "redirect:/auth/access/denied";
+        }
         int soTrang = !soTrangString.isPresent() ? 1 : Integer.parseInt(soTrangString.get());
         int soSanPham = !soSanPhamString.isPresent() ? 6 : Integer.parseInt(soSanPhamString.get());
         int tongSoTrang = txtSearch.isPresent()
@@ -72,6 +78,9 @@ public class CategoriesAdminController {
     @PostMapping("save")
     public String update(@RequestParam("categoryName") Optional<String> categoryName,
                          @RequestParam("categoryId") Optional<String> categoryId) {
+        if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
+            return "redirect:/auth/access/denied";
+        }
         Category category = new Category();
         if (categoryId.isPresent()) {
             category.setId(Integer.parseInt(categoryId.get()));
@@ -86,6 +95,9 @@ public class CategoriesAdminController {
     @GetMapping("delete")
     @Transactional
     public String index(@RequestParam("categoryId") Optional<String> categoryId) {
+        if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
+            return "redirect:/auth/access/denied";
+        }
         try {
             Integer id = Integer.parseInt(categoryId.get());
             productDAO.deleteByCategoryId(id);

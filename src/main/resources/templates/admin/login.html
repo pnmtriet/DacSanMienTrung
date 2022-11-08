@@ -24,9 +24,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-7" style="margin: 60px auto; border-radius: 10px;">
-
-				<a th:href="@{/index}" class="fa fa-home"
-					style="font-size: 50px; text-decoration: none; color: gray;"></a>
 				<div class="alert alert-danger text-center" role="alert"
 					th:if="${message}">[[${message}]]</div>
 				<div
@@ -36,35 +33,27 @@
 						<div class="card-body" style="margin: 20px;">
 							<div class="row" style="margin: 20px 10px;">
 								<div class="text-center col-5" style="margin-top: 80px;">
-									<img src="../assets/favicon.ico"
+									<img th:src="@{/assets/logo/favicon.ico}"
 										style="border-radius: 50%; background-color: rgba(236, 233, 233, 0.596); box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2);"
 										class="img-fluid p-5">
 								</div>
 								<div class="col-7">
 									<form class="form-group"
-										th:action="@{/login}" method="post">
+										  name="myForm" action="/auth/login" method ="post">
 										<h1 class="text-center" style="font-weight: bold;">Đăng
 											nhập</h1>
 										<br> <br>
-										<input type="text" name="username" id=""
+										<input type="text" name="username"
 											class="form-control mb-3" placeholder="Tên đăng nhập"
-											style="border-radius: 15px; padding: 22px;"> <input
-											type="password" name="password" id="myPass"
+											style="border-radius: 15px; padding: 22px;">
+										<input
+											type="password" name="password"
 											class="form-control" placeholder="Mật khẩu"
 											style="border-radius: 15px; padding: 22px;">
 										<div class="mt-2 ml-2"
 											style="font-size: 14px; font-family: inherit; color: rgba(68, 68, 68, 0.801);">
 											<input type="checkbox" onclick="hidePass()" id="hide">
 											<label for="hide">Hiển thị mật khẩu</label>
-										</div>
-										<div class="row">
-											<a type="button" class="btn btn-link mt-1 mb-3 col-6"
-												th:href="@{/forgotPassword}"
-												style="color: rgb(128, 187, 255); text-decoration: none;">Quên
-												mật khẩu?</a> <a th:href="@{/register}" type="button"
-												class="btn btn-link mt-1 mb-3 col-6"
-												style="color: rgb(128, 187, 255); text-decoration: none;">Tạo
-												tài khoản</a>
 										</div>
 										<div class="row m-0 p-0">
 											<button class="btn btn-success col" name="submit"
@@ -73,16 +62,6 @@
 												nhập</button>
 										</div>
 									</form>
-									<div class="text-center">
-										<span>Hoặc đăng nhập bằng</span>
-									</div>
-									<div class="text-center mt-3">
-										<a class="btn btn-primary"
-											style="border-radius: 50%; color: white; cursor: pointer;"><i class="fa fa-facebook-square"></i></a>
-											|
-										<a class="btn btn-danger"
-											style="border-radius: 50%; color: white; cursor: pointer;"><i class="fa fa-google"></i></a>
-									</div>
 								</div>
 							</div>
 						</div>

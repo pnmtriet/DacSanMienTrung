@@ -21,9 +21,12 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			Account user=userDAO.findById(username).get();
+			Account user=userDAO.findByUsername(username);
 			String password=user.getPassWord();
 			String role=String.valueOf(user.getRole().getId());
+			var a=User.withUsername(username)
+					.password(pe.encode(password))
+					.roles(role).build();
 			return User.withUsername(username)
 					.password(pe.encode(password))
 					.roles(role).build();

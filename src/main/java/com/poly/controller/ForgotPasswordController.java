@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("forgotPassword")
-public class forgotPasswordController {
+public class ForgotPasswordController {
 	Account account=new Account();
 	String codeRandom="";
 	@Autowired

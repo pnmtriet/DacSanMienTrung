@@ -12,4 +12,7 @@ public interface AccountDAO extends JpaRepository<Account, String> {
     @Query("SELECT a FROM Account a WHERE email=?1 OR phone=?1")
     Account findByEmailOrPhone(String emailOrPhone);
 
+    @Query("SELECT a FROM Account a WHERE a.userName=?1")
+    Account findByUsername(String username);
+
 }

@@ -35,7 +35,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		// CDRP, CORS
 		http.csrf().disable().cors().disable();
 
-		// Phân quyền xử dụng
+		// Phân quyền sử dụng
 		http.authorizeRequests().anyRequest().permitAll();// anonymous // Không phân quyền gì cả
 
 		// Điều khiển lỗi truy cập không đúng vai trò

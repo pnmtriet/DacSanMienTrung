@@ -3,9 +3,11 @@ package com.poly.entity;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Product {
+@Table(name = "Product")
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -36,12 +38,18 @@ public class Product {
     @Column(name = "number_of_sale")
     private Integer numberOfSale;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @Column(name = "category_id", nullable = true)
+    private Integer categoryId;
+
+    @Column(name = "brand_id", nullable = true)
+    private Integer brandId;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id")
+    @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Brand brand;
 
     public Integer getId() {
@@ -122,5 +130,21 @@ public class Product {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
     }
 }

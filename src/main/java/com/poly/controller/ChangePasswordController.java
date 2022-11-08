@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("changePassword")
-public class changePasswordController {
+public class ChangePasswordController {
 	@Autowired
 	SessionDAO session;
 

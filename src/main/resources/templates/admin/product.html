@@ -61,7 +61,7 @@
 				<div
 						class="text-white text-center me-2 d-flex align-items-center justify-content-center">
 					<i class="material-icons opacity-10">dashboard</i>
-				</div> <span class="nav-link-text ms-1">Quản lý Giày</span>
+				</div> <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link text-white "
 									th:href="@{/admin/order}">
@@ -104,19 +104,19 @@
 				<ol
 						class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
 					<li class="breadcrumb-item text-sm"><a
-							class="opacity-5 text-dark" href="javascript:;">GOLDENFEET
+							class="opacity-5 text-dark" href="javascript:;">DSMT
 						Admin</a></li>
 					<li class="breadcrumb-item text-sm text-dark active"
-						aria-current="page">Quản lý Giày</li>
+						aria-current="page">Quản lý sản phẩm</li>
 				</ol>
-				<h6 class="font-weight-bolder mb-0">Quản lý Giày</h6>
+				<h6 class="font-weight-bolder mb-0">Quản lý sản phẩm</h6>
 			</nav>
 			<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
 				 id="navbar">
-				<form action="/admin/index" method="get"
+				<form action="/admin/product" method="get"
 					  class="ms-md-auto pe-md-3 d-flex align-items-center">
 					<div class="input-group input-group-outline">
-						<label class="form-label">Nhập tên giày cần tìm</label> <input
+						<label class="form-label">Nhập tên sản phẩm...</label> <input
 							name="txtSearch" type="text" class="form-control">
 					</div>
 					<button style="margin-top: 20px;" class="btn btn-primary">
@@ -155,17 +155,57 @@
 	</nav>
 	<!-- End Navbar -->
 	<div class="container-fluid py-4">
-		<h5>message</h5>
-		<div class="row">
-			<div class="position-relative mt-n4 mx-3 " style="color: red">
-				deleted</div>
-			<div class="position-relative mt-n4 mx-3 " style="color: red">
-				inserted</div>
+		<div class="position-relative mt-n4 mx-3 " style="color: hsl(80,80.5%,26.5%)">
+			[[${message}]]</div>
 			<div class="col-12">
-				<form class="card my-4" action="/admin/index/insert" method="get">
+				<div class="card my-4" >
 					<div class="position-relative mt-n4 mx-3 ">
-						<button class="btn btn-success" style="float: right;">Thêm
-							giày mới</button>
+						<button
+								class="btn btn-success"
+								style="float: right;"
+								data-target="#modelThem"
+								data-toggle="modal">Thêm sản phẩm mới
+						</button>
+					</div>
+				</div>
+				<form>
+					<div class="modal fade"
+						 id="modelThem"
+						 tabindex="-1"
+						 role="dialog"
+						 aria-labelledby="exampleModalCenterTitle"
+						 aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Thông tin sản phẩm</h5>
+									<button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="card-body">
+										<div class="billing-address-form">
+											<p><input
+													style="border: solid; padding: 10px 15px;"
+													class="form-control"
+													type="text"
+													name="productName"
+													required="required"
+													title="Không được bỏ trống!"
+													placeholder="Tên sản phẩm"
+											>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button formaction="/admin/product/save" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
+									<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Đóng</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</form>
 				<div class="card my-4">
@@ -182,10 +222,9 @@
 								<thead>
 								<tr>
 									<th
-											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mã
-										giày</th>
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
 									<th
-											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giày</th>
+											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên sản phẩm</th>
 									<th
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đơn
 										giá</th>
@@ -193,54 +232,208 @@
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giảm
 										giá (%)</th>
 									<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mô tả</th>
+									<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh</th>
+									<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số lượng bán</th>
+									<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đơn vị</th>
+									<th
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Loại
-										giày</th>
+										sản phẩm</th>
 									<th
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hãng
-										giày</th>
+										sản phẩm</th>
 									<th
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thao
 										tác</th>
 								</tr>
 								</thead>
 								<tbody>
-								<th:block>
+								<th:block th:each="item : ${listProduct}">
 									<tr>
 										<td class="align-middle text-center text-sm">
-											<p class="text-xs font-weight-bold mb-0">item.maGiay</p>
+											<p class="text-xs font-weight-bold mb-0">[[${item.id}]]</p>
 										</td>
 										<td>
 											<div class="d-flex px-2 py-1">
 												<div>
 													<img
-															th:src="@{/images/sp/item.hinhAnh}"
+															th:src="@{'/assets/img/products/'+${item.images}}"
 															class="avatar avatar-sm me-3 border-radius-lg"
 															alt="user1">
 												</div>
 												<div class="d-flex flex-column justify-content-center">
-													<h6 class="mb-0 text-sm">item.tenGiay</h6>
+													<h6 class="mb-0 text-sm">[[${item.productName}]]</h6>
 												</div>
 											</div>
 										</td>
 										<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">item.donGia</span>
+												class="text-secondary text-xs font-weight-bold">[[${item.price}]]</span>
 										</td>
 										<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">giảm giá
+												class="text-secondary text-xs font-weight-bold">[[${item.discount}]]
 												</span></td>
-										<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold"></span>
+										<td class="align-middle"><span
+												class="text-secondary text-xs font-weight-bold">[[${item.note}]]</span>
 										</td>
 										<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold"></span>
+												class="text-secondary text-xs font-weight-bold">[[${item.images}]]</span>
 										</td>
-										<td class="align-middle text-center"><a
-												href="/admin/index/update?maGiay="
-												class="text-secondary font-weight-bold text-xs"> Chi
-											tiết </a> <a href="/admin/index/delete?idGiay="
-														 onclick="return confirm('Bạn có muốn xóa  không?');"
-														 class="text-secondary font-weight-bold text-xs"
-														 style="margin-left: 10px;"> Xóa </a></td>
+										<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">[[${item.numberOfSale}]]</span>
+										</td>
+										<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">[[${item.unit}]]</span>
+										</td>
+										<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">[[${item.category.categoryName}]]</span>
+										</td>
+										<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">[[${item.brand.brandName}]]</span>
+										</td>
+										<td class="align-middle text-center">
+											<a style="cursor: pointer;"
+											   class="text-secondary font-weight-bold text-xs"
+											   data-toggle="modal"
+											   th:attr="data-target='#modelChiTiet'+${item.id}"
+											> Chi tiết
+											</a>
+											<a th:href="@{'/admin/product/delete?productId='+${item.id}}"
+											   th:attr="onclick=|return confirm('Bạn có chắc chắn muốn xóa ${item.productName} không?')|"
+											   class="text-secondary font-weight-bold text-xs"
+											   style="margin-left: 10px; cursor: pointer;"> Xóa
+											</a>
+										</td>
+										<form>
+											<div class="modal fade"
+												 th:id="'modelChiTiet' + ${item.id}"
+												 tabindex="-1"
+												 role="dialog"
+												 aria-labelledby="exampleModalCenterTitle"
+												 aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLongTitle">Thông tin sản phẩm</h5>
+															<button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="card-body">
+																<div class="billing-address-form">
+																	<p><input
+																			style="padding: 10px 15px;"
+																			readonly class="form-control"
+																			type="text"
+																			name="productId"
+																			required="required"
+																			placeholder="Mã sản phẩm"
+																			th:value="${item.id}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="productName"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Tên sản phẩm"
+																			th:value="${item.productName}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="price"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Đơn giá"
+																			th:value="${item.price}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="discount"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Giảm giá"
+																			th:value="${item.discount}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="note"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Mô tả sản phẩm"
+																			th:value="${item.note}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="images"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Hình ảnh sản phẩm"
+																			th:value="${item.images}">
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="unit"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Đơn vị bán"
+																			th:value="${item.unit}">
+																	</p>
+																	<p><select style="border: solid; padding: 10px 15px;"
+																			   class="form-control"
+																			   type="text"
+																			   name="category">
+																		<option>Default select</option>
+																		<option>Default select</option>
+																		<option>Default select</option>
+																	</select>
+																	</p>
+																	<p>
+																		<select style="border: solid; padding: 10px 15px;"
+																				class="form-control"
+																				type="text"
+																				name="brand">
+																			<option>Default select</option>
+																			<option>Default select</option>
+																			<option>Default select</option>
+																		</select>
+																	</p>
+																	<p><input
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control"
+																			type="text"
+																			name="productName"
+																			required="required"
+																			title="Không được bỏ trống!"
+																			placeholder="Tên loại sản phẩm"
+																			th:value="${item.productName}">
+																	</p>
+																</div>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button formaction="/admin/product/save" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
+															<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Đóng</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
 									</tr>
 								</th:block>
 								</tbody>
@@ -249,11 +442,14 @@
 					</div>
 				</div>
 				<div id="numberPageID">
-					<a href="/admin/index?soTrang=1"
-					   class="btn btn-success numberPage activeCustom">1</a>
-					<a href="/admin/index?soTrang=2"
-					   class="btn btn-success numberPage">2</a>
-
+					<th:block th:each="i: ${#numbers.sequence(1,tongSoTrang)}">
+						<a th:if="${soTrangHienTai==i}"
+						   th:href="@{'/admin/product?soTrang='+${i}}"
+						   class="btn btn-success numberPage activeCustom">[[${i}]]</a>
+						<a th:unless="${soTrangHienTai==i}"
+						   th:href="@{'/admin/product?soTrang='+${i}+'&soSanPham='+${soSanPhamHienTai}}"
+						   class="btn btn-success numberPage">[[${i}]]</a>
+					</th:block>
 				</div>
 			</div>
 		</div>
@@ -393,8 +589,6 @@
 <script
 		th:src="@{/admin/assets/js/plugins/chartjs.min.js}"></script>
 <script>
-		var ctx = document.getElementById("chart-bars").getContext("2d");
-
 		new Chart(ctx, {
 			type : "bar",
 			data : {
@@ -668,6 +862,8 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
+<script
+		th:src="@{/admin/assets/js/product.js}"></script>
 </body>
 
 </html>

@@ -67,12 +67,7 @@ public class LoginController {
             }
         }
         if(loginSuccess) {
-            Account account=(Account) session.get("user");
-            if(account.getRole().getId()==1||account.getRole().getId()==2) {
-                return "redirect:/admin/index";
-            }else {
-                return !path.isEmpty() ? "redirect:/"+path : "redirect:/index";
-            }
+            return !path.isEmpty() ? "redirect:/"+path : "redirect:/index";
         }else {
             return "redirect:/login";
         }

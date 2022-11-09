@@ -27,7 +27,7 @@ CREATE TABLE Product
   id INT IDENTITY(1,1) PRIMARY KEY,
   product_name NVARCHAR(500),
   price INT,
-  discount FLOAT,
+  discount INT,
   note NVARCHAR(MAX),
   images VARCHAR(MAX),
   unit NVARCHAR(MAX),

@@ -12,10 +12,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +48,7 @@ public class ProductAdminController {
                         @RequestParam Optional<String> save,
                         @RequestParam("soTrang") Optional<String> soTrangString,
                         @RequestParam("soSanPham") Optional<String> soSanPhamString,
-                        @RequestParam("txtSearch") Optional<String> txtSearch,
-                        @ModelAttribute("product") Product product) {
+                        @RequestParam("txtSearch") Optional<String> txtSearch) {
         if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
             return "redirect:/auth/access/denied";
         }
@@ -91,12 +95,36 @@ public class ProductAdminController {
     }
 
     @PostMapping("save")
-    public String save(@ModelAttribute("product") Product product){
-        if(product!=null){
+    public String save(@RequestParam("id") Optional<String> id,
+                       @RequestParam("productName") Optional<String> productName,
+                       @RequestParam("price") Optional<String> price,
+                       @RequestParam("discount") Optional<String> discount,
+                       @RequestParam("note") Optional<String> note,
+                       @RequestParam("unit") Optional<String> unit,
+                       @RequestParam("categoryId") Optional<String> categoryId,
+                       @RequestParam("brandId") Optional<String> brandId,
+                       @RequestParam("images") MultipartFile fileImages,
+                       @RequestParam("imagesOld") Optional<String> imagesOld,HttpServletRequest req){
+        try{
+            //Lưu file vào thư mục của project
+            productHelper.save(fileImages);
+            // Upload file lên server tomcat
+            String imagesNameSaved= productHelper.uploadImage(req);
+            Product product=new Product();
+            product.setId(id.isPresent()?Integer.parseInt(id.get()):null);
+            product.setProductName(productName.isPresent()?productName.get():null);
+            product.setPrice(price.isPresent()?Integer.parseInt(price.get()):null);
+            product.setDiscount(discount.isPresent()?Integer.parseInt(discount.get()):null);
+            product.setNote(note.isPresent()?note.get():null);
+            product.setUnit(unit.isPresent()?unit.get():null);
             product.setNumberOfSale(0);
+            product.setCategoryId(categoryId.isPresent()?Integer.parseInt(categoryId.get()):null);
+            product.setBrandId(brandId.isPresent()?Integer.parseInt(brandId.get()):null);
+            product.setImages(imagesNameSaved==null || imagesNameSaved.isEmpty()?imagesOld.get():imagesNameSaved);
             productDAO.save(product);
             return "redirect:/admin/product?save=true";
-        }else{
+        }catch (Exception e){
+            e.printStackTrace();
             return "redirect:/admin/product?save=false";
         }
     }

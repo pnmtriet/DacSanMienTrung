@@ -1,31 +1,33 @@
 $(document).ready(() => {
-    //Id
-	$(".inputProductId").change(function(element){
-	 var max = parseInt($(this).attr('max'));
-	 var min = parseInt($(this).attr('min'));
-	 if ($(this).val() > max){
-	    $(this).val(max);
-	 }else if ($(this).val() < min){
-	    $(this).val(min);
-	 }
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#imgProduct').attr('src', e.target.result);
+                 $('#imgProduct').removeAttr('hidden');
+             }
 
-	 //Price
-	 $(".inputProductPrice").change(function(element){
-     	 var max = parseInt($(this).attr('max'));
-     	 var min = parseInt($(this).attr('min'));
-     	 if ($(this).val() > max){
-     	    $(this).val(max);
-     	 }else if ($(this).val() < min){
-     	    $(this).val(min);
-     	 }
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
 
-     //Discount
-     $(".inputProductDiscount").change(function(element){
-          	 var max = parseInt($(this).attr('max'));
-          	 var min = parseInt($(this).attr('min'));
-          	 if ($(this).val() > max){
-          	    $(this).val(max);
-          	 }else if ($(this).val() < min){
-          	    $(this).val(min);
-          	 }
+     $("#inputImgProduct").change(function(){
+         readURL(this);
+     });
+
+          $(".inputImgProductChiTiet").change(function(element){
+                        const thisInput = $(element.currentTarget);
+                        const maSp = thisInput.data("masanpham");
+                        console.log('#imgProduct'+maSp)
+                        console.log(thisInput[0]);
+                        console.log(thisInput[0].files);
+                        if (thisInput[0].files && thisInput[0].files[0]) {
+                          var reader = new FileReader();
+                          reader.onload = function (e) {
+                          console.log("e.target.result:",e.target.result);
+                              $('#imgProductChiTiet'+maSp).attr('src', e.target.result);
+                          }
+                          reader.readAsDataURL(thisInput[0].files[0]);
+                        }
+          });
 });

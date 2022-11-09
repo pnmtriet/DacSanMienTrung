@@ -310,6 +310,36 @@
 	</div>
 	<!-- end cart -->
 
+	<!--start modal-->
+	<div th:if="${orderSaved}" class="modal fade"
+		 id="modalNotify"
+		 tabindex="-1"
+		 role="dialog"
+		 aria-labelledby="exampleModalCenterTitle"
+		 aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Đơn hàng</h5>
+					<button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card-body">
+						<div class="billing-address-form">
+							<p class="pDonHang">Đơn hàng của bạn đã được đặt thành công! Mã đơn hàng của bạn là:[[${orderIdSaved}]]</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" data-dismiss="modal" class="btn btn-primary">Đồng ý</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end modal-->
+
 	<!-- logo carousel -->
 	<div class="logo-carousel-section">
 		<div class="container">

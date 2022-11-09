@@ -56,19 +56,21 @@
 		 id="sidenav-collapse-main">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a
-					class="nav-link text-white active bg-gradient-primary"
-					th:href="@{/admin/index}">
+					class="nav-link text-white"
+					th:href="@{/admin/category}">
 				<div
 						class="text-white text-center me-2 d-flex align-items-center justify-content-center">
 					<i class="material-icons opacity-10">dashboard</i>
-				</div> <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
+				</div>
+				<span class="nav-link-text ms-1">Quản lý loại sản phẩm</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link text-white "
-									th:href="@{/admin/order}">
+			<li class="nav-item"><a
+					class="nav-link text-white bg-gradient-primary active"
+					th:href="@{/admin/product}">
 				<div
 						class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-					<i class="material-icons opacity-10">receipt_long</i>
-				</div> <span class="nav-link-text ms-1">Quản lý đơn hàng</span>
+					<i class="material-icons opacity-10">assignment</i>
+				</div> <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link text-white "
 									th:href="@{/admin/statistical}">
@@ -167,7 +169,7 @@
 								data-toggle="modal">Thêm sản phẩm mới
 						</button>
 					</div>
-					<form th:object="${product}">
+					<form enctype="multipart/form-data">
 						<div class="modal fade"
 							 id="modelThem"
 							 tabindex="-1"
@@ -231,16 +233,6 @@
 														style="border: solid; padding: 10px 15px;"
 														class="form-control"
 														type="text"
-														name="images"
-														required="required"
-														title="Không được bỏ trống!"
-														placeholder="Hình ảnh sản phẩm"
-														th:name="images">
-												</p>
-												<p><input
-														style="border: solid; padding: 10px 15px;"
-														class="form-control"
-														type="text"
 														name="unit"
 														required="required"
 														title="Không được bỏ trống!"
@@ -266,6 +258,22 @@
 																th:text="${brand.brandName}">
 														</option>
 													</select>
+												</p>
+												<p><input
+														id="inputImgProduct"
+														style="border: solid; padding: 10px 15px;"
+														class="form-control"
+														type="file"
+														name="images"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Hình ảnh sản phẩm">
+													<img style="margin-top:8px;"
+														 id="imgProduct"
+														 hidden="hidden"
+														 src=""
+														 width="150px;"
+														 height="150px;" />
 												</p>
 											</div>
 										</div>
@@ -378,7 +386,7 @@
 											   style="margin-left: 10px; cursor: pointer;"> Xóa
 											</a>
 										</td>
-										<form th:object="${product}">
+										<form enctype="multipart/form-data">
 											<div class="modal fade"
 												 th:id="'modelChiTiet' + ${item.id}"
 												 tabindex="-1"
@@ -416,8 +424,7 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Tên sản phẩm"
-																			th:value="${item.productName}"
-																			th:name="productName">
+																			th:value="${item.productName}">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -428,8 +435,7 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Đơn giá"
-																			th:value="${item.price}"
-																			th:name="price">
+																			th:value="${item.price}">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -440,8 +446,7 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Giảm giá"
-																			th:value="${item.discount}"
-																			th:name="discount">
+																			th:value="${item.discount}">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -451,19 +456,7 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Mô tả sản phẩm"
-																			th:value="${item.note}"
-																			th:name="note">
-																	</p>
-																	<p><input
-																			style="border: solid; padding: 10px 15px;"
-																			class="form-control"
-																			type="text"
-																			name="images"
-																			required="required"
-																			title="Không được bỏ trống!"
-																			placeholder="Hình ảnh sản phẩm"
-																			th:value="${item.images}"
-																			th:name="images">
+																			th:value="${item.note}">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -473,8 +466,7 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Đơn vị bán"
-																			th:value="${item.unit}"
-																			th:name="unit">
+																			th:value="${item.unit}">
 																	</p>
 																	<p>
 																		<select style="border: solid; padding: 10px 15px;"
@@ -497,6 +489,26 @@
 																					th:selected="${brand.id} == ${item.brandId}">
 																			</option>
 																		</select>
+																	</p>
+																	<p><input
+																			th:attr="data-masanpham=${item.id}"
+																			style="border: solid; padding: 10px 15px;"
+																			class="form-control inputImgProductChiTiet"
+																			type="file"
+																			placeholder="Hình ảnh sản phẩm"
+																			name="images">
+																		<input
+																				style="border: solid; padding: 10px 15px;"
+																				class="form-control inputImgProductChiTiet"
+																				type="hidden"
+																				placeholder="Hình ảnh sản phẩm"
+																				th:value="${item.images}"
+																				name="imagesOld">
+																		<img style="margin-top:8px;"
+																			 th:id="'imgProductChiTiet' + ${item.id}"
+																			 th:src="@{'/assets/img/products/'+${item.images}}"
+																			 width="150px;"
+																			 height="150px;" />
 																	</p>
 																</div>
 															</div>

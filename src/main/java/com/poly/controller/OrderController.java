@@ -48,12 +48,12 @@ public class OrderController {
             order.setAccount(sessionLogin);
             //Save đơn hàng
             Order orderSaved=orderDAO.save(order);
-
+            Integer orderId=orderSaved.getId();
             //Chi tiết đơn hàng
             Collection<ShoppingCart> listShoppingCart=shoppingCartDAO.getAll();
             for(ShoppingCart item:listShoppingCart){
                 OrdersDetail ordersDetail=new OrdersDetail();
-                ordersDetail.setOrderId(orderSaved.getId());
+                ordersDetail.setOrderId(orderId);
                 ordersDetail.setProductId(item.getId());
                 ordersDetail.setAmount(item.getSoLuong());
                 ordersDetail.setPrice(item.getPrice());
@@ -61,9 +61,9 @@ public class OrderController {
                 orderDetailDAO.save(ordersDetail);
             }
             shoppingCartDAO.clear();
-            return "redirect:/index";
+            return "redirect:/shopping-cart?orderId="+orderId+"&orderSaved=true";
         }catch (Exception e){
-            return "redirect:/shopping-cart";
+            return "redirect:/shopping-cart?orderSaved=false";
         }
     }
 }

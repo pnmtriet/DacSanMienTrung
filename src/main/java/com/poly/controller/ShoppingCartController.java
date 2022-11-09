@@ -31,7 +31,17 @@ public class ShoppingCartController {
 	SessionDAO session;
 	
 	@GetMapping({"","views"})
-	public String viewCart(Model model, @RequestParam("error") Optional<String> error, @ModelAttribute("user") Account user) {
+	public String viewCart(Model model,
+						   @RequestParam("orderSaved") Optional<String> orderSaved,
+						   @RequestParam("orderId") Optional<String> orderId,
+						   @RequestParam("error") Optional<String> error,
+						   @ModelAttribute("user") Account user) {
+		if(orderSaved.isPresent()){
+			if(orderSaved.get().equals("true") && orderId.isPresent()){
+				model.addAttribute("orderSaved",true);
+				model.addAttribute("orderIdSaved",orderId.get());
+			}
+		}
 		if(error.isPresent()){
 			model.addAttribute("error","Đặt hàng thất bại");
 		}

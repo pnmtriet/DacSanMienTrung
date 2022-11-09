@@ -167,47 +167,119 @@
 								data-toggle="modal">Thêm sản phẩm mới
 						</button>
 					</div>
-				</div>
-				<form>
-					<div class="modal fade"
-						 id="modelThem"
-						 tabindex="-1"
-						 role="dialog"
-						 aria-labelledby="exampleModalCenterTitle"
-						 aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Thông tin sản phẩm</h5>
-									<button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<div class="card-body">
-										<div class="billing-address-form">
-											<p><input
-													style="border: solid; padding: 10px 15px;"
-													class="form-control"
-													type="text"
-													name="productName"
-													required="required"
-													title="Không được bỏ trống!"
-													placeholder="Tên sản phẩm"
-											>
-											</p>
+					<form th:object="${product}">
+						<div class="modal fade"
+							 id="modelThem"
+							 tabindex="-1"
+							 role="dialog"
+							 aria-labelledby="exampleModalCenterTitle"
+							 aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Điền thông tin thêm sản phẩm</h5>
+										<button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="card-body">
+											<div class="billing-address-form">
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control"
+														type="text"
+														name="productName"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Tên sản phẩm"
+														th:name="productName">
+												</p>
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control inputProductPrice"
+														type="number"
+														min="500" max="10000000000"
+														name="price"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Đơn giá"
+														th:name="price">
+												</p>
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control inputProductDiscount"
+														type="number"
+														min="0" max="100"
+														name="discount"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Giảm giá"
+														th:name="discount">
+												</p>
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control"
+														type="text"
+														name="note"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Mô tả sản phẩm"
+														th:name="note">
+												</p>
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control"
+														type="text"
+														name="images"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Hình ảnh sản phẩm"
+														th:name="images">
+												</p>
+												<p><input
+														style="border: solid; padding: 10px 15px;"
+														class="form-control"
+														type="text"
+														name="unit"
+														required="required"
+														title="Không được bỏ trống!"
+														placeholder="Đơn vị bán"
+														th:name="unit">
+												</p>
+												<p>
+													<select style="border: solid; padding: 10px 15px;"
+															class="form-control"
+															th:name="categoryId">
+														<option th:each="category : ${listCategory}"
+																th:value="${category.id}"
+																th:text="${category.categoryName}">
+														</option>
+													</select>
+												</p>
+												<p>
+													<select style="border: solid; padding: 10px 15px;"
+															class="form-control"
+															th:name="brandId">
+														<option th:each="brand : ${listBrand}"
+																th:value="${brand.id}"
+																th:text="${brand.brandName}">
+														</option>
+													</select>
+												</p>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="modal-footer">
-									<button formaction="/admin/product/save" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
-									<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Đóng</button>
+									<div class="modal-footer">
+										<button formaction="/admin/product/save" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
+										<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Đóng</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 				<div class="card my-4">
 					<div
 							class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -301,12 +373,12 @@
 											> Chi tiết
 											</a>
 											<a th:href="@{'/admin/product/delete?productId='+${item.id}}"
-											   th:attr="onclick=|return confirm('Bạn có chắc chắn muốn xóa ${item.productName} không?')|"
+											   th:attr="onclick=|return confirm('Thao tác này sẽ làm cho tất cả những chi tiết hóa đơn có sản phẩm ${item.productName} đều bị xóa. Bạn có chắc chắn muốn xóa ${item.productName} không?')|"
 											   class="text-secondary font-weight-bold text-xs"
 											   style="margin-left: 10px; cursor: pointer;"> Xóa
 											</a>
 										</td>
-										<form>
+										<form th:object="${product}">
 											<div class="modal fade"
 												 th:id="'modelChiTiet' + ${item.id}"
 												 tabindex="-1"
@@ -326,12 +398,15 @@
 																<div class="billing-address-form">
 																	<p><input
 																			style="padding: 10px 15px;"
-																			readonly class="form-control"
-																			type="text"
+																			readonly
+																			class="form-control inputProductId"
+																			type="number"
+																			min="1" max="1000000"
 																			name="productId"
 																			required="required"
 																			placeholder="Mã sản phẩm"
-																			th:value="${item.id}">
+																			th:value="${item.id}"
+																			th:name="id">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -341,27 +416,32 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Tên sản phẩm"
-																			th:value="${item.productName}">
+																			th:value="${item.productName}"
+																			th:name="productName">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
-																			class="form-control"
-																			type="text"
+																			class="form-control inputProductPrice"
+																			type="number"
+																			min="500" max="10000000000"
 																			name="price"
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Đơn giá"
-																			th:value="${item.price}">
+																			th:value="${item.price}"
+																			th:name="price">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
-																			class="form-control"
-																			type="text"
+																			class="form-control inputProductDiscount"
+																			type="number"
+																			min="0" max="100"
 																			name="discount"
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Giảm giá"
-																			th:value="${item.discount}">
+																			th:value="${item.discount}"
+																			th:name="discount">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -371,7 +451,8 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Mô tả sản phẩm"
-																			th:value="${item.note}">
+																			th:value="${item.note}"
+																			th:name="note">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -381,7 +462,8 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Hình ảnh sản phẩm"
-																			th:value="${item.images}">
+																			th:value="${item.images}"
+																			th:name="images">
 																	</p>
 																	<p><input
 																			style="border: solid; padding: 10px 15px;"
@@ -391,36 +473,30 @@
 																			required="required"
 																			title="Không được bỏ trống!"
 																			placeholder="Đơn vị bán"
-																			th:value="${item.unit}">
+																			th:value="${item.unit}"
+																			th:name="unit">
 																	</p>
-																	<p><select style="border: solid; padding: 10px 15px;"
+																	<p>
+																		<select style="border: solid; padding: 10px 15px;"
 																			   class="form-control"
-																			   type="text"
-																			   name="category">
-																		<option>Default select</option>
-																		<option>Default select</option>
-																		<option>Default select</option>
-																	</select>
+																			   th:name="categoryId">
+																			<option th:each="category : ${listCategory}"
+																					th:value="${category.id}"
+																					th:text="${category.categoryName}"
+																					th:selected="${category.id} == ${item.categoryId}">
+																			</option>
+																		</select>
 																	</p>
 																	<p>
 																		<select style="border: solid; padding: 10px 15px;"
 																				class="form-control"
-																				type="text"
-																				name="brand">
-																			<option>Default select</option>
-																			<option>Default select</option>
-																			<option>Default select</option>
+																				th:name="brandId">
+																			<option th:each="brand : ${listBrand}"
+																					th:value="${brand.id}"
+																					th:text="${brand.brandName}"
+																					th:selected="${brand.id} == ${item.brandId}">
+																			</option>
 																		</select>
-																	</p>
-																	<p><input
-																			style="border: solid; padding: 10px 15px;"
-																			class="form-control"
-																			type="text"
-																			name="productName"
-																			required="required"
-																			title="Không được bỏ trống!"
-																			placeholder="Tên loại sản phẩm"
-																			th:value="${item.productName}">
 																	</p>
 																</div>
 															</div>

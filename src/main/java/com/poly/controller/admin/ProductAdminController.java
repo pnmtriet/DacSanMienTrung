@@ -1,10 +1,8 @@
 package com.poly.controller.admin;
 
-import com.poly.dao.CategoryDAO;
-import com.poly.dao.ProductDAO;
-import com.poly.dao.SessionDAO;
-import com.poly.dao.ShoppingCartDAO;
+import com.poly.dao.*;
 import com.poly.entity.Account;
+import com.poly.entity.Brand;
 import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.helper.ProductHelper;
@@ -14,11 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +27,24 @@ public class ProductAdminController {
     @Autowired
     ProductDAO productDAO;
 
+    @Autowired
+    CategoryDAO categoryDAO;
+
+    @Autowired
+    BrandDAO brandDAO;
+
+    @Autowired
+    OrderDetailDAO orderDetailDAO;
+
     ProductHelper productHelper=new ProductHelper();
     @GetMapping("")
-    public String index(Model model, @RequestParam Optional<String> message,
+    public String index(Model model,
+                        @RequestParam Optional<String> delete,
+                        @RequestParam Optional<String> save,
                         @RequestParam("soTrang") Optional<String> soTrangString,
                         @RequestParam("soSanPham") Optional<String> soSanPhamString,
-                        @RequestParam("txtSearch") Optional<String> txtSearch) {
+                        @RequestParam("txtSearch") Optional<String> txtSearch,
+                        @ModelAttribute("product") Product product) {
         if(!(request.isUserInRole("1") || request.isUserInRole("2"))) {
             return "redirect:/auth/access/denied";
         }
@@ -57,10 +66,51 @@ public class ProductAdminController {
                 ?productDAO.findByProductNamePage(pageable,txtSearch.get())
                 :productDAO.findAll(pageable);
         List<Product> list=pageProduct.getContent();
-        if(message.isPresent()) {
-            model.addAttribute("message",message.get());
+        if(save.isPresent()) {
+            if(save.get().equals("true")){
+                model.addAttribute("message","Lưu lại thành công!");
+            }else{
+                model.addAttribute("message","Lưu lại thất bại! (Bạn cần chính xác thông tin sản phẩm)");
+            }
+        }
+        if(delete.isPresent()) {
+            if(delete.get().equals("true")){
+                model.addAttribute("message","Xóa thành công!");
+            }else{
+                model.addAttribute("message","Xóa thất bại!");
+            }
         }
         model.addAttribute("listProduct",list);
+        //Category
+        List<Category> listCategory=categoryDAO.findAll();
+        model.addAttribute("listCategory",listCategory);
+        //Brand
+        List<Brand> listBrand=brandDAO.findAll();
+        model.addAttribute("listBrand",listBrand);
         return "admin/product";
+    }
+
+    @PostMapping("save")
+    public String save(@ModelAttribute("product") Product product){
+        if(product!=null){
+            product.setNumberOfSale(0);
+            productDAO.save(product);
+            return "redirect:/admin/product?save=true";
+        }else{
+            return "redirect:/admin/product?save=false";
+        }
+    }
+
+    @GetMapping("delete")
+    @Transactional
+    public String delete(@RequestParam("productId") Optional<String> productId){
+        try{
+            Integer id=Integer.parseInt(productId.get());
+            orderDetailDAO.deleteByProductId(id);
+            productDAO.deleteById(id);
+            return "redirect:/admin/product?delete=true";
+        }catch (Exception e){
+            return "redirect:/admin/product?delete=false";
+        }
     }
 }

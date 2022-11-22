@@ -53,6 +53,10 @@ public class RegisterController {
                     model.addAttribute("message", MESSAGE.USERNAME_EXIST);
                     registerSuccess = false;
                     return "customer/register";
+                }else if (user.getEmail().equalsIgnoreCase(account.getEmail())) {
+                    model.addAttribute("message", MESSAGE.EMAIL_EXIST);
+                    registerSuccess = false;
+                    return "customer/register";
                 }
             }
         }
@@ -66,7 +70,7 @@ public class RegisterController {
             account.setAddress(user.getAddress());
             account.setGender(user.getGender());
             account.setDateOfBirth(user.getDateOfBirth());
-            account.setRole(roleDAO.findById(3).get());
+            account.setRoleId(3);
             accountDAO.save(account);
             return "redirect:/login";
         }else {

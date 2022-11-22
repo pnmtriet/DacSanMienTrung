@@ -3,6 +3,7 @@ package com.poly.message;
 public class MESSAGE_CONSTANT {
 	public String USERNAME_EMPTY="Tài khoản không được để trống!";
 	public String USERNAME_EXIST="Tài khoản đã tồn tại!";
+	public String EMAIL_EXIST="Email này đã tồn tại!";
 	public String PASSWORD_EMPTY="Mật khẩu không được để trống!";
 	public String REPASSWORD_EMPTY="Nhập lại mật khẩu không được để trống!";
 	public String FULLNAME_EMPTY="Họ và tên không được để trống!";

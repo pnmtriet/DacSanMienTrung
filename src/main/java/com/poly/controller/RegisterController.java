@@ -54,7 +54,7 @@ public class RegisterController {
                     registerSuccess = false;
                     return "customer/register";
                 }else if (user.getEmail().equalsIgnoreCase(account.getEmail())) {
-                    model.addAttribute("message", MESSAGE.EMAIL_EXIST);
+                    model.addAttribute("messageEmail", MESSAGE.EMAIL_EXIST);
                     registerSuccess = false;
                     return "customer/register";
                 }
@@ -72,11 +72,10 @@ public class RegisterController {
             account.setDateOfBirth(user.getDateOfBirth());
             account.setRoleId(3);
             accountDAO.save(account);
-            return "redirect:/login";
-        }else {
-            return "redirect:/register";
-        }
+            model.addAttribute("registerSuccess",true);
 
+        }
+        return "customer/register";
     }
 
 }

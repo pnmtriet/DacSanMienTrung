@@ -2,158 +2,202 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Register</title>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Register</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script th:src="@{/../../js/app.js}"></script>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <script th:src="@{/../../js/app.js}"></script>
 </head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-7"
-				style="margin: 40px auto 60px auto; border-radius: 10px;">
-				<a th:href="@{/index}" class="fa fa-home"
-					style="font-size: 50px; text-decoration: none; color: gray;"></a>
-				<form th:action="@{/register}" method="post"
-					  th:object="${user}"
-					style="border: 1px solid rgba(128, 128, 128, 0.308); border-radius: 10px; box-shadow: 0 2px 2px rgba(128, 128, 128, 0.158); background-color: rgba(169, 215, 255, 0.034);">
-					<div class="card-header">
-						<h2 class="text-center" style="font-weight: bold;">Đăng kí</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-7"
+             style="margin: 40px auto 60px auto; border-radius: 10px;">
+            <a th:href="@{/index}" class="fa fa-home"
+               style="font-size: 50px; text-decoration: none; color: gray;"></a>
+            <form th:action="@{/register}" method="post"
+                  th:object="${user}"
+                  style="border: 1px solid rgba(128, 128, 128, 0.308); border-radius: 10px; box-shadow: 0 2px 2px rgba(128, 128, 128, 0.158); background-color: rgba(169, 215, 255, 0.034);">
+                <div class="card-header">
+                    <h2 class="text-center" style="font-weight: bold;">Đăng kí</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="name">Họ và tên</label> <input id="name"
+                                                                           class="form-control" type="text"
+                                                                           name="fullname" th:field="*{fullName}"
+                                                                           required="required">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="username">Tài khoản</label> <input
+                                    th:field="*{userName}"
+                                    required="required"
+                                    id="username"
+                                    class="form-control" type="text"
+                                    name="username"> <small th:if="${message}!=null"
+                                                            class="text-danger"><i>[[${message}]]</i></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="password">Mật khẩu</label> <input
+                                    th:field="*{passWord}"
+                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                    title="Mật khẩu bao gồm 8 ký tự, chữ in hoa, chữ cái thường và số"
+                                    required="required"
+                                    id="password"
+                                    class="form-control" type="password"
+                                    name="password">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="repassword">Nhắc lại mật khẩu</label> <input id="repassword"
+                                                                                         required="required"
+                                                                                         class="form-control"
+                                                                                         type="password"
+                                                                                         name="repassword">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="gender">Giới tính</label> <select th:field="*{gender}"
+                                                                              id="gender"
+                                                                              class="form-control" name="gender">
+                                <option value="false">Nam</option>
+                                <option value="true">Nữ</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label> <input
+                                    th:field="*{phone}"
+                                    pattern="(0[3|5|7|8|9])+([0-9]{8})"
+                                    title="Số điện thoại Việt Nam bao gồm 10 chữ số"
+                                    required="required"
+                                    id="phone"
+                                    class="form-control" type="text"
+                                    name="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Ngày sinh</label> <input th:field="*{dateOfBirth}"
+                                                                                  required="required"
+                                                                                  id="dateOfBirth"
+                                                                                  class="form-control" type="date"
+                                                                                  value="2000-01-01"
+                                                                                  name="dateOfBirth">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="email">Email</label> <input
+                                    required="required"
+                                    th:field="*{email}"
+                                    id="email"
+                                    class="form-control" type="email"
+                                    name="email">
+                                <small th:if="${message}!=null"
+                                       class="text-danger"><i>[[${messageEmail}]]</i></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="address">Địa chỉ</label> <textarea th:field="*{address}"
+                                                                               required="required"
+                                                                               type="text"
+                                                                               id="address" class="form-control"
+                                                                               name="address"
+                                                                               rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <button class="btn btn-outline-primary">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+		<!--start modal-->
+		<div th:if="${registerSuccess}" class="modal fade"
+			 id="modalNotify"
+			 tabindex="-1"
+			 role="dialog"
+			 aria-labelledby="exampleModalCenterTitle"
+			 aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Thông báo</h5>
+						<button style="display: inline-block;border: none;" type="button" class="close"
+								data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label for="name">Họ và tên</label> <input id="name"
-										class="form-control" type="text"
-										name="fullname" th:field="*{fullName}" required="required">
-								</div>
+					<div class="modal-body">
+						<div class="card-body">
+							<div class="billing-address-form">
+								<p>Tài khoản của bạn đã được đăng ký thành công! Bấm tiếp tục đến trang đăng
+									nhập</p>
 							</div>
-							<div class="col">
-								<div class="form-group">
-									<label for="username">Tài khoản</label> <input
-										th:field="*{userName}"
-										required="required"
-										id="username"
-										class="form-control" type="text"
-										name="username"> <small th:if="${message}!=null"
-										class="text-danger"><i>[[${message}]]</i></small>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label for="password">Mật khẩu</label> <input
-										th:field="*{passWord}"
-										pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-										title="Mật khẩu bao gồm 8 ký tự, chữ in hoa, chữ cái thường và số"
-										required="required"
-										id="password"
-										class="form-control" type="password"
-										name="password">
-								</div>
-							</div>
-							<div class="col">
-								<div class="form-group">
-									<label for="repassword">Nhắc lại mật khẩu</label> <input id="repassword" required="required"
-																				  class="form-control" type="password"
-																				  name="repassword">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label for="gender">Giới tính</label> <select  th:field="*{gender}"
-																					id="gender"
-																				  class="form-control" name="gender">
-									<option value="false">Nam</option>
-									<option value="true">Nữ</option>
-								</select>
-								</div>
-							</div>
-							<div class="col">
-								<div class="form-group">
-									<label for="phone">Số điện thoại</label> <input
-										th:field="*{phone}"
-										pattern="(0[3|5|7|8|9])+([0-9]{8})"
-										title="Số điện thoại Việt Nam bao gồm 10 chữ số"
-										required="required"
-										id="phone"
-										class="form-control" type="text"
-										name="phone">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label for="dateOfBirth">Ngày sinh</label> <input th:field="*{dateOfBirth}"
-																					  required="required"
-																					id="dateOfBirth"
-																					class="form-control" type="date"
-																					  value="2000-01-01"
-																					name="dateOfBirth">
-								</div>
-							</div>
-							<div class="col">
-								<div class="form-group">
-									<label for="email">Email</label> <input
-										required="required"
-										th:field="*{email}"
-										id="email"
-										class="form-control" type="email"
-										name="email">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label for="address">Địa chỉ</label> <textarea th:field="*{address}"
-																				   required="required"
-																				type="text"
-																				id="address" class="form-control" name="address"
-																				rows="3"></textarea>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div>
-							<button class="btn btn-outline-primary">ĐĂNG KÝ</button>
 						</div>
 					</div>
-				</form>
+					<div class="modal-footer">
+						<a href="/login" class="btn btn-primary">Tiếp tục</a>
+						<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+		<!--end modal-->
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+	<script>
+		$("#modalNotify").modal('show');
+	</script>
+</div>
 </body>
 
 </html>

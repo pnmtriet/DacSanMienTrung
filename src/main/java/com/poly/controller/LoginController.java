@@ -37,8 +37,8 @@ public class LoginController {
         if(error.isPresent()) {
             if(error.get().equals("errorNoLogin")){
                 model.addAttribute("message", "Vui lòng đăng nhập để tiếp tục!");
-            }else{
-                model.addAttribute("message", error.get());
+            }else if(error.get().equals("LoginFail")){
+                model.addAttribute("message", "Sai tên đăng nhập hoặc mật khẩu");
             }
         }
         return "customer/login";
@@ -69,7 +69,7 @@ public class LoginController {
         if(loginSuccess) {
             return !path.isEmpty() ? "redirect:/"+path : "redirect:/index";
         }else {
-            return "redirect:/login";
+            return !path.isEmpty() ? "redirect:/login?error=LoginFail&urlReturn="+path :"redirect:/login?error=LoginFail";
         }
     }
 

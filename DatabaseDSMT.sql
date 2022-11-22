@@ -96,6 +96,7 @@ CREATE TABLE Orders
   --Ngày giao dự kiến (mặc định + lên 3 ngày)
   delivery_date DATE,
   payment NVARCHAR(50),
+  payment_status NVARCHAR(50),
   fullname NVARCHAR(50),
   phone VARCHAR(20),
   email VARCHAR(50),
@@ -218,4 +219,6 @@ values ('pnmtriet','123456',N'Phạm Nguyễn Minh Triết','0393796446','pnmtri
 --select * from Account
 --select * from Orders
 --select * from OrdersDetail
+
+select * from Orders
 

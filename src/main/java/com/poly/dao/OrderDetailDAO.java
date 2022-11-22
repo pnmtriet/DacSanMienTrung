@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface OrderDetailDAO extends JpaRepository<OrdersDetail,Integer> {
     @Modifying
@@ -15,4 +17,7 @@ public interface OrderDetailDAO extends JpaRepository<OrdersDetail,Integer> {
     @Modifying
     @Query("DELETE FROM OrdersDetail p WHERE p.orderId=?1")
     void deleteByOrderId(Integer orderId);
+
+    @Query("SELECT od FROM OrdersDetail od WHERE od.orderId=?1")
+    List<OrdersDetail> findAllByOrderId(Integer orderId);
 }

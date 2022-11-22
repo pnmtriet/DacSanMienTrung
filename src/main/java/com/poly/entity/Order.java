@@ -4,12 +4,13 @@ import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -37,25 +38,26 @@ public class Order {
     @Column(name = "payment", length = 50)
     private String payment;
 
-    @Nationalized
+    @Column(name = "payment_status", length = 50)
+    private String paymentStatus;
+
+
     @Column(name = "fullname", length = 50)
     private String fullname;
 
-    @Nationalized
     @Column(name = "phone", length = 20)
     private String phone;
 
     @Column(name = "email", length = 50)
     private String email;
 
-    @Nationalized
     @Column(name = "address", length = 300)
     private String address;
 
     @Column(name = "account_id", nullable = true)
     private Integer accountId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Account account;
 
@@ -155,5 +157,21 @@ public class Order {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 }

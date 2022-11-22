@@ -22,6 +22,18 @@ public class OrdersDetail {
     @Column(name = "price")
     private Integer price;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -52,8 +52,11 @@ public class Order {
     @Column(name = "address", length = 300)
     private String address;
 
+    @Column(name = "account_id", nullable = true)
+    private Integer accountId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Account account;
 
     public Integer getId() {

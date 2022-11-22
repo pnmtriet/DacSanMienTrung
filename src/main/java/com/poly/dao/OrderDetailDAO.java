@@ -11,4 +11,8 @@ public interface OrderDetailDAO extends JpaRepository<OrdersDetail,Integer> {
     @Modifying
     @Query("DELETE FROM OrdersDetail p WHERE p.productId=?1")
     void deleteByProductId(Integer productId);
+
+    @Modifying
+    @Query("DELETE FROM OrdersDetail p WHERE p.orderId=?1")
+    void deleteByOrderId(Integer orderId);
 }

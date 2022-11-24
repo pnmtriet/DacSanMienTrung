@@ -70,9 +70,10 @@
                 <div
                         class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="material-icons opacity-10">assignment</i>
-                </div> <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
+                </div>
+                <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
             </a></li>
-            <li class="nav-item"><a class="nav-link text-white active bg-gradient-primary" th:href="@{/admin/account}">
+            <li class="nav-item"><a class="nav-link text-white " th:href="@{/admin/account}">
                 <div
                         class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="material-icons opacity-10">person</i>
@@ -80,7 +81,7 @@
                 <span class="nav-link-text ms-1">Quản lý khách hàng</span>
             </a></li>
             <li class="nav-item"><a
-                    class="nav-link text-white"
+                    class="nav-link text-white active bg-gradient-primary"
                     th:href="@{/admin/order}">
                 <div
                         class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -112,17 +113,17 @@
                             class="opacity-5 text-dark" href="javascript:;">DSMT
                         Admin</a></li>
                     <li class="breadcrumb-item text-sm text-dark active"
-                        aria-current="page">Quản lý khách hàng
+                        aria-current="page">Quản lý hóa đơn
                     </li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Quản lý khách hàng</h6>
+                <h6 class="font-weight-bolder mb-0">Quản lý hóa đơn</h6>
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
                  id="navbar">
-                <form action="/admin/account" method="get"
+                <form action="/admin/order" method="get"
                       class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <div class="input-group input-group-outline">
-                        <label class="form-label">Username or fullname...</label> <input
+                        <label class="form-label">Mã hóa đơn...</label> <input
                             name="txtSearch" type="text" class="form-control">
                     </div>
                     <button style="margin-top: 20px;" class="btn btn-primary">
@@ -162,153 +163,10 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="position-relative mt-n4 mx-3 text-success">
-                [[${message}]]</div>
-            <div class="position-relative mt-n4 mx-3 text-danger" >
-                [[${error}]]</div>
+            <div class="position-relative mt-n4 mx-3 " style="color: hsl(80,80.5%,26.5%)">
+                [[${message}]]
+            </div>
             <div class="col-12">
-                <div class="card my-4" >
-                    <div class="position-relative mt-n4 mx-3 ">
-                        <button
-                                class="btn btn-success"
-                                style="float: right;"
-                                data-target="#modelThem"
-                                data-toggle="modal">Thêm
-                            tài khoản mới
-                        </button>
-                    </div>
-                </div>
-                <form>
-                    <div class="modal fade"
-                         id="modelThem"
-                         tabindex="-1"
-                         role="dialog"
-                         aria-labelledby="exampleModalCenterTitle"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Thông tin tài khoản</h5>
-                                    <button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="card-body">
-                                        <div class="billing-address-form">
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="username"
-                                                    required="required"
-                                                    title="Không được bỏ trống!"
-                                                    placeholder="Tài khoản"
-                                                    >
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="password"
-                                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                                                    title="Mật khẩu bao gồm 8 ký tự, chữ in hoa, chữ cái thường và số"
-                                                    required="required"
-                                                    placeholder="Mật khẩu"
-                                                    >
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="fullName"
-                                                    required="required"
-                                                    title="Không được bỏ trống!"
-                                                    placeholder="Họ tên"
-                                                    >
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="phone"
-                                                    pattern="(0[3|5|7|8|9])+([0-9]{8})"
-                                                    title="Số điện thoại Việt Nam bao gồm 10 chữ số"
-                                                    required="required"
-                                                    placeholder="Số điện thoại"
-                                                   >
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="email"
-                                                    required="required"
-                                                    title="Không được bỏ trống!"
-                                                    placeholder="Email"
-                                                    >
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="date"
-                                                    name="dateOfBirth"
-                                                    required="required"
-                                                    title="Không được bỏ trống!"
-                                                    placeholder="Ngày sinh"
-                                                    th:value="2000/12/30"
-                                            >
-                                            </p>
-                                            <p>
-                                                <select style="border: solid; padding: 10px 15px;"
-                                                        class="form-control"
-                                                        th:name="gender">
-                                                    <option
-                                                            th:value="false"
-                                                            th:text="Nam"
-                                                            selected
-                                                    >
-                                                    </option>
-                                                    <option
-                                                            th:value="true"
-                                                            th:text="Nữ"
-                                                    >
-                                                    </option>
-                                                </select>
-                                            </p>
-                                            <p><input
-                                                    style="border: solid; padding: 10px 15px;"
-                                                    class="form-control"
-                                                    type="text"
-                                                    name="address"
-                                                    required="required"
-                                                    title="Không được bỏ trống!"
-                                                    placeholder="Địa chỉ"
-                                               >
-                                            </p>
-                                            <p>
-                                                <select style="border: solid; padding: 10px 15px;"
-                                                        class="form-control"
-                                                        th:name="roleId">
-                                                    <option th:each="role : ${listRole}"
-                                                            th:value="${role.id}"
-                                                            th:text="${role.roleName}"
-                                                            >
-                                                    </option>
-                                                </select>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button formaction="/admin/account/add" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Đóng</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
                 <div class="card my-4">
                     <div
                             class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -323,16 +181,31 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ID
+                                        Mã hóa đơn
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tài khoản
+                                        Ngày xuất
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Mật khẩu
+                                        Ngày giao dự kiến
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Họ tên
+                                        Trạng thái
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Tổng tiền
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Phương thức thanh toán
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Trạng thái thanh toán
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Tài khoản đặt
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Tên người đặt
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Số điện thoại
@@ -341,16 +214,10 @@
                                         Email
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Giới tính
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Ngày sinh
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Địa chỉ
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Quyền
+                                        Ghi chú
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Thao tác
@@ -358,7 +225,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="item : ${listAccount}">
+                                <th:block th:each="item : ${listOrder}">
                                     <tr>
                                         <td class="align-middle text-center text-sm">
                                             <p class="text-xs font-weight-bold mb-0">[[${item.id}]]</p>
@@ -366,21 +233,58 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">[[${item.userName}]]</h6>
+                                                    <h6 class="mb-0 text-sm"
+                                                        th:text="${#dates.format(item.orderDate, 'dd-MM-yyyy')}"></h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">[[${item.passWord}]]</h6>
+                                                    <h6 class="mb-0 text-sm"
+                                                        th:text="${#dates.format(item.deliveryDate, 'dd-MM-yyyy')}"></h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">[[${item.fullName}]]</h6>
+                                                    <h6 class="mb-0 text-sm">[[${item.orderStatus}]]</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">[[${item.totalMoney}]]</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">[[${item.payment}]]</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">[[${item.paymentStatus}]]</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">[[${item.account.userName}]]</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">[[${item.fullname}]]</h6>
                                                 </div>
                                             </div>
                                         </td>
@@ -401,21 +305,6 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm" th:if="${item.gender}">Nữ</h6>
-                                                    <h6 class="mb-0 text-sm" th:unless="${item.gender}">Nam</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm" th:text="${#dates.format(item.dateOfBirth, 'dd-MM-yyyy')}"></h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">[[${item.address}]]</h6>
                                                 </div>
                                             </div>
@@ -423,26 +312,33 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">[[${item.role.roleName}]]</h6>
+                                                    <h6 class="mb-0 text-sm">[[${item.note}]]</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a style="cursor: pointer;"
                                                class="text-secondary font-weight-bold text-xs"
-                                               data-toggle="modal"
-                                               th:attr="data-target='#modelChiTiet'+${item.id}"
-                                            > Chi tiết
+                                               target="_blank" rel="noopener noreferrer"
+                                               th:href="@{'/admin/order/detail?orderId='+${item.id}}"
+                                            > Xem chi tiết
                                             </a>
-                                            <a th:href="@{'/admin/account/delete?accountId='+${item.id}}"
-                                               th:attr="onclick=|return confirm('Thao tác này sẽ xóa tất cả các hóa đơn của tài khoản ${item.userName}. Bạn có chắc chắn muốn xóa tài khoản ${item.userName} không?')|"
+                                            <a style="margin-left: 10px; cursor: pointer;"
+                                               class="text-secondary font-weight-bold text-xs"
+                                               data-toggle="modal"
+                                               th:attr="data-target='#modelSua'+${item.id}"
+                                            > Sửa đơn hàng
+                                            </a>
+                                            <a th:href="@{'/admin/order/delete?orderId='+${item.id}}"
+                                               th:attr="onclick=|return confirm('Bạn có chắc chắn muốn xóa đơn hàng #${item.id} không?')|"
                                                class="text-secondary font-weight-bold text-xs"
                                                style="margin-left: 10px; cursor: pointer;"> Xóa
                                             </a>
                                         </td>
+                                        <!-- Modal Sửa -->
                                         <form>
                                             <div class="modal fade"
-                                                 th:id="'modelChiTiet' + ${item.id}"
+                                                 th:id="'modelSua' + ${item.id}"
                                                  tabindex="-1"
                                                  role="dialog"
                                                  aria-labelledby="exampleModalCenterTitle"
@@ -450,8 +346,11 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Thông tin tài khoản</h5>
-                                                            <button style="display: inline-block;border: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Thông tin
+                                                                hóa đơn</h5>
+                                                            <button style="display: inline-block;border: none;"
+                                                                    type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -462,32 +361,97 @@
                                                                             style="padding: 10px 15px;"
                                                                             readonly class="form-control"
                                                                             type="text"
-                                                                            name="id"
+                                                                            name="orderId"
                                                                             required="required"
-                                                                            placeholder="Mã tài khoản"
+                                                                            placeholder="Mã đơn hàng"
                                                                             th:value="${item.id}">
                                                                     </p>
                                                                     <p><input
-                                                                            style="padding: 10px 15px;"
-                                                                            readonly
+                                                                            style="border: solid; padding: 10px 15px;"
                                                                             class="form-control"
-                                                                            type="text"
-                                                                            name="username"
+                                                                            type="date"
+                                                                            name="orderDate"
                                                                             required="required"
                                                                             title="Không được bỏ trống!"
-                                                                            placeholder="Tài khoản"
-                                                                            th:value="${item.userName}">
+                                                                            th:value="${#dates.format(item.orderDate, 'yyyy-MM-dd')}">
+                                                                    </p>
+                                                                    <p><input
+                                                                            style="border: solid; padding: 10px 15px;"
+                                                                            class="form-control"
+                                                                            type="date"
+                                                                            name="deliveryDate"
+                                                                            required="required"
+                                                                            title="Không được bỏ trống!"
+                                                                            th:value="${#dates.format(item.deliveryDate, 'yyyy-MM-dd')}">
                                                                     </p>
                                                                     <p><input
                                                                             style="border: solid; padding: 10px 15px;"
                                                                             class="form-control"
                                                                             type="text"
-                                                                            name="password"
-                                                                            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                                                                            title="Mật khẩu bao gồm 8 ký tự, chữ in hoa, chữ cái thường và số"
+                                                                            name="orderStatus"
                                                                             required="required"
-                                                                            placeholder="Mật khẩu"
-                                                                            th:value="${item.passWord}">
+                                                                            title="Không được bỏ trống!"
+                                                                            placeholder="Trạng thái"
+                                                                            th:value="${item.orderStatus}">
+                                                                    </p>
+                                                                    <p><input
+                                                                            style="border: solid; padding: 10px 15px;"
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="totalMoney"
+                                                                            required="required"
+                                                                            title="Không được bỏ trống!"
+                                                                            th:value="${item.totalMoney}">
+                                                                    </p>
+                                                                    <p>
+                                                                        <select style="border: solid; padding: 10px 15px;"
+                                                                                class="form-control"
+                                                                                th:name="payment">
+                                                                            <option
+                                                                                    th:value="Paypal"
+                                                                                    th:text="Paypal"
+                                                                                    th:selected="${item.payment} == 'Paypal'"
+                                                                            >
+                                                                            </option>
+                                                                            <option
+                                                                                    value="Tiền mặt"
+                                                                                    th:selected="${item.payment} == 'Tiền mặt'"
+                                                                            >Tiền mặt
+                                                                            </option>
+                                                                        </select>
+                                                                    </p>
+                                                                    <p>
+                                                                        <select style="border: solid; padding: 10px 15px;"
+                                                                                class="form-control"
+                                                                                th:name="paymentStatus">
+                                                                            <option
+                                                                                    value="Chưa thanh toán"
+                                                                                    th:selected="${item.paymentStatus} == 'Chưa thanh toán'"
+                                                                            >Chưa thanh toán
+                                                                            </option>
+                                                                            <option
+                                                                                    value="Đã thanh toán"
+                                                                                    th:selected="${item.paymentStatus} == 'Đã thanh toán'"
+                                                                            >Đã thanh toán
+                                                                            </option>
+                                                                        </select>
+                                                                    </p>
+                                                                    <p><input
+                                                                            style="border: solid; padding: 10px 15px;"
+                                                                            class="form-control"
+                                                                            type="hidden"
+                                                                            name="accountId"
+                                                                            th:value="${item.accountId}">
+                                                                    </p>
+                                                                    <p><input
+                                                                            style="border: solid; padding: 10px 15px;"
+                                                                            class="form-control"
+                                                                            type="text"
+                                                                            name="username"
+                                                                            required="required"
+                                                                            title="Không được bỏ trống!"
+                                                                            placeholder="Tên người đặt"
+                                                                            th:value="${item.account.userName}">
                                                                     </p>
                                                                     <p><input
                                                                             style="border: solid; padding: 10px 15px;"
@@ -496,8 +460,8 @@
                                                                             name="fullName"
                                                                             required="required"
                                                                             title="Không được bỏ trống!"
-                                                                            placeholder="Họ tên"
-                                                                            th:value="${item.fullName}">
+                                                                            placeholder="Tên người đặt"
+                                                                            th:value="${item.fullname}">
                                                                     </p>
                                                                     <p><input
                                                                             style="border: solid; padding: 10px 15px;"
@@ -513,41 +477,12 @@
                                                                     <p><input
                                                                             style="border: solid; padding: 10px 15px;"
                                                                             class="form-control"
-                                                                            type="text"
+                                                                            type="email"
                                                                             name="email"
                                                                             required="required"
                                                                             title="Không được bỏ trống!"
                                                                             placeholder="Email"
                                                                             th:value="${item.email}">
-                                                                    </p>
-                                                                    <p><input
-                                                                            style="border: solid; padding: 10px 15px;"
-                                                                            class="form-control"
-                                                                            type="date"
-                                                                            name="dateOfBirth"
-                                                                            required="required"
-                                                                            title="Không được bỏ trống!"
-                                                                            placeholder="Ngày sinh"
-                                                                            th:value="${#dates.format(item.dateOfBirth, 'yyyy-MM-dd')}"
-                                                                            >
-                                                                    </p>
-                                                                    <p>
-                                                                        <select style="border: solid; padding: 10px 15px;"
-                                                                                class="form-control"
-                                                                                th:name="gender">
-                                                                            <option
-                                                                                    th:value="false"
-                                                                                    th:text="Nam"
-                                                                                    th:selected="!${item.gender}"
-                                                                            >
-                                                                            </option>
-                                                                            <option
-                                                                                    th:value="true"
-                                                                                    th:text="Nữ"
-                                                                                    th:selected="${item.gender}"
-                                                                            >
-                                                                            </option>
-                                                                        </select>
                                                                     </p>
                                                                     <p><input
                                                                             style="border: solid; padding: 10px 15px;"
@@ -559,29 +494,31 @@
                                                                             placeholder="Địa chỉ"
                                                                             th:value="${item.address}">
                                                                     </p>
-                                                                    <p>
-                                                                        <select style="border: solid; padding: 10px 15px;"
-                                                                                class="form-control"
-                                                                                th:name="roleId">
-                                                                            <option th:each="role : ${listRole}"
-                                                                                    th:value="${role.id}"
-                                                                                    th:text="${role.roleName}"
-                                                                                    th:selected="${role.id} == ${item.roleId}">
-                                                                            </option>
-                                                                        </select>
+                                                                    <p><input
+                                                                            style="border: solid; padding: 10px 15px;"
+                                                                            class="form-control"
+                                                                            type="text"
+                                                                            name="note"
+                                                                            title="Không được bỏ trống!"
+                                                                            placeholder="Ghi chú"
+                                                                            th:value="${item.note}">
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button formaction="/admin/account/save" formmethod="post" type="submit" class="btn btn-primary">Lưu lại</button>
+                                                            <button formaction="/admin/order/save" formmethod="post"
+                                                                    type="submit" class="btn btn-primary">Lưu lại
+                                                            </button>
                                                             <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Đóng</button>
+                                                                    data-dismiss="modal">Đóng
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
+                                        <!-- Modal sửa -->
                                     </tr>
                                 </th:block>
                                 </tbody>
@@ -592,10 +529,10 @@
                 <div id="numberPageID">
                     <th:block th:each="i: ${#numbers.sequence(1,tongSoTrang)}">
                         <a th:if="${soTrangHienTai==i}"
-                           th:href="@{'/admin/account?soTrang='+${i}}"
+                           th:href="@{'/admin/order?soTrang='+${i}}"
                            class="btn btn-success numberPage activeCustom">[[${i}]]</a>
                         <a th:unless="${soTrangHienTai==i}"
-                           th:href="@{'/admin/account?soTrang='+${i}+'&soSanPham='+${soSanPhamHienTai}}"
+                           th:href="@{'/admin/order?soTrang='+${i}+'&soSanPham='+${soSanPhamHienTai}}"
                            class="btn btn-success numberPage">[[${i}]]</a>
                     </th:block>
                 </div>
@@ -610,6 +547,7 @@
                             ©
                             <script>
 									document.write(new Date().getFullYear())
+
 
 
                             </script>
@@ -988,6 +926,7 @@
 		});
 
 
+
 </script>
 <script>
 		var win = navigator.platform.indexOf('Win') > -1;
@@ -998,6 +937,7 @@
 			Scrollbar.init(document.querySelector('#sidenav-scrollbar'),
 					options);
 		}
+
 
 
 </script>

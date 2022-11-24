@@ -258,7 +258,7 @@
                     <ul>
                         <li class="active">Tất cả</li>
                         <th:block th:each="item : ${listCategory}">
-                            <li>[[${item.categoryName}]]</li>
+                            <li th:attr="data-filter='.filter'+${item.id}">[[${item.categoryName}]]</li>
                         </th:block>
                     </ul>
                 </div>
@@ -267,7 +267,7 @@
         <section class="items">
             <div class="row product-lists">
                 <th:block th:each="item : ${listProduct}">
-                    <div class="col-lg-4 col-md-6 text-center">
+                    <div class="col-lg-4 col-md-6 text-center" th:classappend="'filter'+${item.categoryId}">
                         <div class="single-product-item">
                             <div class="product-image">
                                 <a th:href="@{'/single-product?id='+${item.id}}"><img class="product_img"

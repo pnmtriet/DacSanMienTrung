@@ -36,5 +36,11 @@ public class AuthController {
 		model.addAttribute("message", "Không đủ quyền truy cập!");
 		return "admin/login";
 	}
+
+	@RequestMapping("/admin/logout")
+	public String logout(Model model) {
+		model.addAttribute("message", "Đăng xuất thành công!");
+		return "forward:/auth/logoff";
+	}
 	
 }

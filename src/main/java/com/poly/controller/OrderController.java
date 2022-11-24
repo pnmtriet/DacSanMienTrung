@@ -105,7 +105,6 @@ public class OrderController {
                              @RequestParam("PayerID") Optional<String> payerId,
                              @RequestParam Integer orderId) {
         Account sessionLogin = (Account) session.get("user");
-        Order ordera=orderDAO.existByAccountIdAndOrderId(sessionLogin.getId(),orderId);
         if(sessionLogin==null){
             return "redirect:/login?error=errorNoLogin&urlReturn=order/pay/status?orderId="+orderId;
         }else if(orderDAO.existByAccountIdAndOrderId(sessionLogin.getId(),orderId)==null){

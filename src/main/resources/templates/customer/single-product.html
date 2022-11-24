@@ -33,6 +33,8 @@
 
 	<link rel="stylesheet" th:href="@{/css/menu_custom.css}">
 
+	<link rel="stylesheet" th:href="@{/css/single-product.css}">
+
 </head>
 <body>
 
@@ -182,7 +184,7 @@
 
 					<div class="col-md-5">
 						<div class="single-product-img">
-							<img class="product_img" th:src="@{'/assets/img/products/'+${product.images}}" alt="">
+							<img id="product_img" class="product_img" th:src="@{'/assets/img/products/'+${product.images}}" alt="">
 						</div>
 					</div>
 					<div class="col-md-7">
@@ -212,52 +214,56 @@
 	</div>
 	<!-- end single product -->
 
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Related</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+		<!-- more products -->
+		<div class="more-products mb-150">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="section-title">
+							<h3><span class="orange-text">Bình luận</span></h3>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/single-product"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+				<div class="row">
+					<div class="col-12">
+						<div class="card card-white post">
+							<div class="post-heading">
+								<div class="float-left image">
+									<img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+								</div>
+								<div class="float-left meta">
+									<div class="title h5">
+										<a href="#"><b>Minh Triet</b></a>
+									</div>
+									<h6 class="text-muted time">15 phút trước</h6>
+								</div>
+							</div>
+							<div class="post-description">
+								<p>Đã ăn qua, cảm thấy rất ngon. Nhất định tôi sẽ quay lại!</p>
+
+							</div>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 80$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/single-product"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+						<div style="margin-top: 20px;" class="card card-white post">
+							<div class="post-heading">
+								<div class="float-left image">
+									<img src="https://i.pinimg.com/736x/ed/80/f7/ed80f704afb25270ea9dac456da6407a.jpg" class="img-circle avatar" alt="user profile image">
+								</div>
+								<div class="float-left meta">
+									<div class="title h5">
+										<a href="#"><b>Phi Long</b></a>
+									</div>
+									<h6 class="text-muted time">3 ngày trước</h6>
+								</div>
+							</div>
+							<div class="post-description">
+								<p>Ăn một lần nhớ mãi, đúng là tinh hoa của ẩm thực Việt Nam</p>
+							</div>
 						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="/single-product"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- end more products -->
+		<!-- end more products -->
 
 	<!-- logo carousel -->
 	<div class="logo-carousel-section">
@@ -382,7 +388,7 @@
 
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-		<script th:src="@{/fly_to_cart/js/flyto.min.js}"></script>
+		<script th:src="@{/fly_to_cart/js/flyto2.js}"></script>
 		<script th:src="@{/js/single_product_custom.js}"></script>
 </body>
 </html>

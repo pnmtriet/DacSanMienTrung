@@ -1,7 +1,6 @@
 package com.poly.controller.admin;
 
 import com.poly.dao.*;
-import com.poly.entity.Account;
 import com.poly.entity.Brand;
 import com.poly.entity.Category;
 import com.poly.entity.Product;
@@ -12,15 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
